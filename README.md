@@ -64,7 +64,7 @@ Pour la photo de portrait :
 python outils/optimiser_images.py --source assets/originaux/photo --cible assets/img --largeur 960 --largeur-mini 480
 ```
 
-puis remplace `assets/img/portrait.svg` par le fichier `.webp` obtenu dans `index.html`.
+puis ajoute dans la section « À propos » de `index.html` une figure `<img src="assets/img/portrait.webp" alt="Portrait de Gora Ndoye">` (l’emplacement est signalé par un commentaire « À MODIFIER »).
 
 ## Aperçu LinkedIn
 

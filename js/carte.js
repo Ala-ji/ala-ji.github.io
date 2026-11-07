@@ -407,6 +407,18 @@
       </table>${demo ? '<p class="popup-note">Temps simulés (démonstration)</p>' : ''}`;
   }
 
+  // Fonds de carte du thème courant. On recrée les couches plutôt que d'appeler setUrl :
+  // setUrl redessine au niveau de zoom fractionnaire courant (7,5…) et le serveur de tuiles
+  // renvoie alors une autre région du monde.
+  function poserFonds(L, map) {
+    state.tiles.forEach((t) => map.removeLayer(t));
+    const [urlFond, urlEtiquettes] = CONFIG.fonds[theme()];
+    state.tiles = [
+      L.tileLayer(urlFond, { maxNativeZoom: 16, maxZoom: 19, attribution: CONFIG.attribution }).addTo(map),
+      L.tileLayer(urlEtiquettes, { maxNativeZoom: 16, maxZoom: 19, pane: 'etiquettes' }).addTo(map),
+    ];
+  }
+
   function initialiserCarte(L) {
     mapEl.innerHTML = '';
     const map = L.map(mapEl, {
@@ -420,11 +432,8 @@
     map.getPane('etiquettes').style.zIndex = 650;
     map.getPane('etiquettes').style.pointerEvents = 'none';
 
-    const [urlFond, urlEtiquettes] = CONFIG.fonds[theme()];
-    state.tiles = [
-      L.tileLayer(urlFond, { maxNativeZoom: 16, maxZoom: 19, attribution: CONFIG.attribution }).addTo(map),
-      L.tileLayer(urlEtiquettes, { maxNativeZoom: 16, maxZoom: 19, pane: 'etiquettes' }).addTo(map),
-    ];
+    state.L = L;
+    poserFonds(L, map);
 
     // Une seule commune survolée à la fois : si un « mouseout » se perd (page qui défile
     // sous la souris, réordonnancement du SVG), la précédente est refermée quand même.
@@ -475,8 +484,7 @@
     afficherLegende();
     afficherTableau();
     if (state.map) {
-      const urls = CONFIG.fonds[theme()];
-      state.tiles.forEach((t, i) => t.setUrl(urls[i]));
+      poserFonds(state.L, state.map);
       state.layer.setStyle(style);
     }
   });

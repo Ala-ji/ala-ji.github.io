@@ -83,26 +83,7 @@
     document.querySelectorAll('main > section[id]').forEach((s) => spy.observe(s));
   }
 
-  /* ---------- Apparition au défilement ---------- */
-  const revealEls = [...document.querySelectorAll('[data-reveal]')];
-  revealEls.forEach((el) => {
-    const siblings = [...el.parentElement.children].filter((c) => c.hasAttribute('data-reveal'));
-    const i = siblings.indexOf(el);
-    if (i > 0) el.style.transitionDelay = `${Math.min(i, 5) * 70}ms`;
-  });
-  if (reduceMotion.matches || !('IntersectionObserver' in window)) {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-    revealEls.forEach((el) => io.observe(el));
-  }
+  /* Une seule entrée au chargement : le texte de l'accueil (animation CSS). Le reste est statique. */
 
   /* ---------- Animation d'accueil : isochrones ----------
      Quelques « cabinets » (+) et leurs axes rapides. Pour chaque point de
@@ -115,15 +96,15 @@
     const ctx = canvas.getContext('2d');
     const hero = canvas.closest('.hero') || canvas.parentElement;
 
-    const STEP = 46;      // écart entre deux courbes
-    const PERIOD = 7000;  // durée (ms) pour qu'une courbe avance d'un cran
+    const STEP = 56;      // écart entre deux courbes
+    const PERIOD = 9000;  // durée (ms) pour qu'une courbe avance d'un cran
     const V_FAST = 2.5;   // vitesse relative sur les axes rapides
     const seed = Math.floor(Math.random() * 1e9);
 
     let W = 0, H = 0, cell = 10, cols = 0, rows = 0, tMax = 0;
     let field = null, cmin = null, cmax = null, sources = [];
     let running = false, raf = 0, last = 0, onScreen = true;
-    const colors = { ink: '#1b2a2f', accent: '#b5401f' };
+    const colors = { ink: '#1b2a2f', accent: '#b5401f', bg: '#f6f3ec' };
 
     function mulberry32(a) {
       return function () {
@@ -138,6 +119,7 @@
       const cs = getComputedStyle(root);
       colors.ink = cs.getPropertyValue('--ink').trim() || colors.ink;
       colors.accent = cs.getPropertyValue('--accent').trim() || colors.accent;
+      colors.bg = cs.getPropertyValue('--bg').trim() || colors.bg;
     }
 
     function setup() {
@@ -263,7 +245,7 @@
       // Axes rapides
       ctx.save();
       ctx.strokeStyle = colors.ink;
-      ctx.globalAlpha = 0.09;
+      ctx.globalAlpha = 0.07;
       ctx.lineWidth = 1;
       ctx.setLineDash([2, 6]);
       ctx.beginPath();
@@ -282,26 +264,24 @@
         const major = ((id % 3) + 3) % 3 === 0;
         let a = Math.pow(1 - L / maxL, 1.25);
         if (L < STEP) a *= L / STEP;
-        ctx.globalAlpha = (major ? 0.62 : 0.3) * a;
+        ctx.globalAlpha = (major ? 0.5 : 0.2) * a;
         ctx.strokeStyle = major ? colors.accent : colors.ink;
-        ctx.lineWidth = major ? 1.4 : 0.9;
+        ctx.lineWidth = major ? 1.2 : 0.8;
         ctx.beginPath();
         contour(L);
         ctx.stroke();
       }
 
-      // Cabinets
+      // Cabinets : une croix au crayon rouge sur une pastille de papier, sans halo
       ctx.lineCap = 'round';
       for (const src of sources) {
-        const pulse = 0.5 + 0.5 * Math.sin(now / 900 + src.offset);
-        ctx.globalAlpha = 0.14 + 0.1 * pulse;
-        ctx.fillStyle = colors.accent;
-        ctx.beginPath();
-        ctx.arc(src.x, src.y, 9 + 4 * pulse, 0, Math.PI * 2);
-        ctx.fill();
         ctx.globalAlpha = 1;
+        ctx.fillStyle = colors.bg;
+        ctx.beginPath();
+        ctx.arc(src.x, src.y, 7, 0, Math.PI * 2);
+        ctx.fill();
         ctx.strokeStyle = colors.accent;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1.75;
         ctx.beginPath();
         seg(src.x - 5, src.y, src.x + 5, src.y);
         seg(src.x, src.y - 5, src.x, src.y + 5);

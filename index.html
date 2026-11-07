@@ -43,7 +43,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
   <script src="js/carte.js" defer></script>
@@ -138,8 +138,7 @@
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="wrap hero-inner">
         <div class="hero-text">
-          <p class="kicker"><span class="kicker-num">00</span>Géographie de la santé · Accès aux soins</p>
-          <h1 class="hero-title" id="hero-titre">Gora <em>Ndoye</em></h1>
+          <h1 class="hero-title" id="hero-titre">Gora Ndoye</h1>
           <p class="hero-role">Géographe de la santé · territoires de santé et technologies de santé</p>
           <p class="hero-lead">J’étudie comment on accède <strong>réellement</strong> aux soins : temps de trajet en voiture ou en transports en commun, place de la téléconsultation, écarts entre territoires. Et je le rends lisible sur une carte.</p>
           <ul class="hero-meta">
@@ -159,38 +158,34 @@
         <span>une courbe = 5 min de trajet en plus</span>
         <span>depuis le cabinet le plus rapide</span>
       </div>
-      <a class="scroll-cue" href="#apropos" aria-label="Faire défiler vers la présentation"><span></span></a>
     </section>
 
     <!-- ===================== À PROPOS ===================== -->
     <section class="section" id="apropos" aria-labelledby="apropos-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">01</span>À propos <span class="coord" title="Orléans">47°54′ N · 1°54′ E</span></p>
+          <p class="kicker">À propos <span class="coord" title="Orléans">47°54′ N · 1°54′ E</span></p>
           <h2 id="apropos-titre">Rendre visibles les distances qui comptent</h2>
         </header>
         <div class="about-grid">
-          <figure class="about-portrait" data-reveal>
-            <!-- À MODIFIER : ta photo (voir README, « Images ») -->
-            <img src="assets/img/portrait.svg" alt="Portrait de Gora Ndoye (photo à venir)" width="480" height="560">
-          </figure>
-          <div class="about-text" data-reveal>
+          <div class="about-text">
             <!-- À MODIFIER : ta présentation (trois paragraphes courts suffisent) -->
             <p class="lead">Géographe de la santé, je modélise les territoires de santé à plusieurs échelles et j’étudie l’<strong>adoption des technologies de santé</strong>, en particulier la téléconsultation, par les professionnels comme par les publics vulnérables.</p>
             <p>Titulaire du master Santé, Environnement et Informations Spatio-temporelles (universités Jean Monnet et Jean Moulin, mention Bien), j’ai conduit mon mémoire en alternance à la DCGDR Centre-Val de Loire : l’accès aux soins des personnes en situation de handicap, du démarchage de proximité à la téléconsultation assistée. Il a débouché sur un portail cartographique d’aide à la décision destiné aux CPAM.</p>
             <p>Mes terrains vont du Centre-Val de Loire à la Creuse, de Lyon à Saint-Étienne, et jusqu’à Joal, au Sénégal. Mes outils : QGIS et ArcGIS Pro, les données du SNDS, XLSTAT et R pour les statistiques, les enquêtes par questionnaire et par entretien. Prochaine étape : une thèse sur l’acceptabilité des technologies au sein des territoires de santé.</p>
-            <dl class="facts">
-              <div><dt>Localisation</dt><dd>Lyon · mobile partout en France</dd></div>
-              <div><dt>Formation</dt><dd>Master SEIST · mention Bien</dd></div>
-              <div><dt>Outils clés</dt><dd>QGIS · ArcGIS Pro · SNDS · XLSTAT · R</dd></div>
-              <div><dt>Langues</dt><dd>Français courant · anglais intermédiaire</dd></div>
-            </dl>
           </div>
+          <!-- À MODIFIER : pour ajouter ta photo, voir README, « Images » -->
+          <dl class="facts">
+            <div><dt>Localisation</dt><dd>Lyon · mobile partout en France</dd></div>
+            <div><dt>Formation</dt><dd>Master SEIST · mention Bien</dd></div>
+            <div><dt>Outils clés</dt><dd>QGIS · ArcGIS Pro · SNDS · XLSTAT · R</dd></div>
+            <div><dt>Langues</dt><dd>Français courant · anglais intermédiaire</dd></div>
+          </dl>
         </div>
-        <ul class="stats" data-reveal>
-          <li><span class="stat-num">18/20</span><span class="stat-label">note du mémoire de Master 2, conduit à la DCGDR Centre-Val de Loire</span></li>
+        <ul class="stats">
+          <li class="stat-key"><span class="stat-num">18/20</span><span class="stat-label">note du mémoire de Master 2, conduit à la DCGDR Centre-Val de Loire</span></li>
           <li><span class="stat-num">4</span><span class="stat-label">certifications en santé numérique et en santé publique (EN3S, OMS, Open University)</span></li>
-          <li><span class="stat-num">0</span><span class="stat-label">distance à vol d’oiseau : chaque trajet est calculé sur le réseau réel</span></li>
+          <li><span class="stat-num">2</span><span class="stat-label">mémoires de recherche appliquée, menés avec l’URPS-ML et la DCGDR Centre-Val de Loire</span></li>
         </ul>
       </div>
     </section>
@@ -199,37 +194,37 @@
     <section class="section section-alt" id="competences" aria-labelledby="competences-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">02</span>Compétences <span class="coord" title="Tours">47°23′ N · 0°41′ E</span></p>
+          <p class="kicker">Compétences <span class="coord" title="Tours">47°23′ N · 0°41′ E</span></p>
           <h2 id="competences-titre">Des outils, chacun relié à un usage concret</h2>
-          <p class="section-intro">Pas de jauges ni de pourcentages : chaque compétence renvoie au travail où elle a servi.</p>
+          <p class="section-intro">Pas de jauges ni de pourcentages : chaque compétence renvoie au travail où elle a servi</p>
         </header>
         <!-- À MODIFIER : garde seulement ce que tu maîtrises vraiment -->
         <div class="skills-grid">
-          <article class="skill-card" data-reveal>
+          <article class="skill-card">
             <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></div>
             <h3>Analyse spatiale et cartographie</h3>
-            <p>Cartographie thématique, analyse des disparités sanitaires et diagnostics territoriaux, de la commune à la région.</p>
+            <p>Cartographie thématique, analyse des disparités sanitaires et diagnostics territoriaux, de la commune à la région</p>
             <ul class="chips"><li>QGIS</li><li>ArcGIS Pro</li><li>Analyse spatiale</li><li>Cartes et graphiques</li></ul>
             <a class="skill-link" href="#cartes">Utilisé dans : galerie cartographique <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </article>
-          <article class="skill-card" data-reveal>
+          <article class="skill-card">
             <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></div>
             <h3>Données de santé et statistiques</h3>
-            <p>Exploitation des données de l’Assurance Maladie, typologies et modèles pour repérer les populations les plus éloignées des soins.</p>
+            <p>Exploitation des données de l’Assurance Maladie, typologies et modèles pour repérer les populations les plus éloignées des soins</p>
             <ul class="chips"><li>SNDS</li><li>XLSTAT</li><li>ACP · CAH</li><li>Arbres C&amp;RT</li><li>R Studio</li></ul>
             <a class="skill-link" href="#projet">Utilisé dans : mémoire à la DCGDR <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </article>
-          <article class="skill-card" data-reveal>
+          <article class="skill-card">
             <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#i-route"/></svg></div>
             <h3>Accessibilité et mobilités</h3>
-            <p>Temps de trajet sur réseau réel, en voiture et en transports en commun, et choix du cabinet le plus rapide.</p>
+            <p>Temps de trajet sur réseau réel, en voiture et en transports en commun, et choix du cabinet le plus rapide</p>
             <ul class="chips"><li>OpenTripPlanner</li><li>openrouteservice</li><li>GTFS</li><li>Isochrones</li><li>Leaflet</li></ul>
             <a class="skill-link" href="#viz">Utilisé dans : la carte de ce site <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </article>
-          <article class="skill-card" data-reveal>
+          <article class="skill-card">
             <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></div>
             <h3>Enquêtes et méthodes qualitatives</h3>
-            <p>Questionnaires, entretiens avec des professionnels de santé et analyse textuelle des discours.</p>
+            <p>Questionnaires, entretiens avec des professionnels de santé et analyse textuelle des discours</p>
             <ul class="chips"><li>Sphinx</li><li>Entretiens qualitatifs</li><li>IRaMuTeq</li><li>Recherche documentaire</li></ul>
             <a class="skill-link" href="#parcours">Utilisé dans : stage à l’URPS-ML <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </article>
@@ -241,32 +236,32 @@
     <section class="section" id="projet" aria-labelledby="projet-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">03</span>Projet phare · Mémoire de Master 2 <span class="coord" title="Bourges">47°05′ N · 2°24′ E</span></p>
+          <p class="kicker">Projet phare · Mémoire de Master 2 <span class="coord" title="Bourges">47°05′ N · 2°24′ E</span></p>
           <h2 id="projet-titre">Combien de minutes jusqu’au médecin&#8239;?</h2>
           <p class="section-intro">Mémoire conduit en alternance à la DCGDR Centre-Val de Loire (Assurance Maladie), noté 18/20 : soutenir l’accès aux soins des personnes en situation de handicap, <strong>du démarchage de proximité à la téléconsultation assistée</strong>. Au cœur du diagnostic, le temps de trajet réel vers le cabinet le plus rapide, en voiture et en transports en commun.</p>
         </header>
 
         <div class="context-grid">
-          <article class="context-card" data-reveal>
+          <article class="context-card">
             <h3>La question</h3>
-            <p>Pour une personne en situation de handicap, sans médecin traitant et éloignée des soins, quel levier choisir : un accompagnement jusqu’au cabinet, ou une téléconsultation assistée près de chez elle ?</p>
+            <p>Pour une personne en situation de handicap, sans médecin traitant et éloignée des soins, quel levier choisir : un accompagnement jusqu’au cabinet, ou une téléconsultation assistée près de chez elle&#8239;?</p>
           </article>
-          <article class="context-card" data-reveal>
+          <article class="context-card">
             <h3>Le territoire</h3>
-            <p><strong>6</strong> départements, <strong data-stat="communes">1 754</strong> communes et <strong data-stat="population">2,59 millions</strong> d’habitants, des agglomérations de Tours et d’Orléans aux campagnes du Berry.</p>
+            <p><strong>6</strong> départements, <strong data-stat="communes">1 754</strong> communes et <strong data-stat="population">2,59 millions</strong> d’habitants, des agglomérations de Tours et d’Orléans aux campagnes du Berry</p>
           </article>
-          <article class="context-card" data-reveal>
+          <article class="context-card">
             <h3>Les livrables</h3>
-            <p>Un diagnostic territorial, les temps de trajet par mode, un classement des situations d’accès et un portail cartographique d’aide à la décision pour les CPAM.</p>
+            <p>Un diagnostic territorial, les temps de trajet par mode, un classement des situations d’accès et un portail cartographique d’aide à la décision pour les CPAM</p>
           </article>
         </div>
 
-        <ol class="pipeline" data-reveal>
-          <li><span class="step-num">01</span><h3>Vulnérabilités</h3><p>Repérer les communes où se cumulent éloignement des soins, fracture numérique, ruralité et vieillissement.</p></li>
-          <li><span class="step-num">02</span><h3>Trajets</h3><p>Temps réel jusqu’au cabinet le plus <strong>rapide</strong> : voiture (openrouteservice), transports en commun (OpenTripPlanner).</p></li>
-          <li><span class="step-num">03</span><h3>Classement</h3><p>Accès facile, accès avec accompagnement, accès difficile ou impossible.</p></li>
-          <li><span class="step-num">04</span><h3>Alternative</h3><p>Faisabilité de la téléconsultation assistée : accompagnement, connexion, accessibilité des lieux.</p></li>
-          <li><span class="step-num">05</span><h3>Restitution</h3><p>Mémoire, tableaux, cartes et portail cartographique pour les CPAM.</p></li>
+        <ol class="pipeline">
+          <li><span class="step-num">01</span><h3>Vulnérabilités</h3><p>Repérer les communes où se cumulent éloignement des soins, fracture numérique, ruralité et vieillissement</p></li>
+          <li><span class="step-num">02</span><h3>Trajets</h3><p>Temps réel jusqu’au cabinet le plus <strong>rapide</strong> : voiture (openrouteservice), transports en commun (OpenTripPlanner)</p></li>
+          <li><span class="step-num">03</span><h3>Classement</h3><p>Accès facile, accès avec accompagnement, accès difficile ou impossible</p></li>
+          <li><span class="step-num">04</span><h3>Alternative</h3><p>Faisabilité de la téléconsultation assistée : accompagnement, connexion, accessibilité des lieux</p></li>
+          <li><span class="step-num">05</span><h3>Restitution</h3><p>Mémoire, tableaux, cartes et portail cartographique pour les CPAM</p></li>
         </ol>
 
         <div class="viz" id="viz">
@@ -319,12 +314,12 @@
           </div>
         </div>
 
-        <div class="limits" data-reveal>
+        <div class="limits">
           <h3>Limites assumées</h3>
           <ul>
-            <li>Les horaires régionaux publiés ne sont complets qu’en été : les trajets en transports en commun sont calculés pour un mardi de juillet.</li>
-            <li>Les temps en voiture ne tiennent pas compte des embouteillages.</li>
-            <li>Les résultats publiés sont agrégés à la commune : aucune donnée individuelle n’est diffusée.</li>
+            <li>Les horaires régionaux publiés ne sont complets qu’en été : les trajets en transports en commun sont calculés pour un mardi de juillet</li>
+            <li>Les temps en voiture ne tiennent pas compte des embouteillages</li>
+            <li>Les résultats publiés sont agrégés à la commune : aucune donnée individuelle n’est diffusée</li>
           </ul>
         </div>
       </div>
@@ -334,7 +329,7 @@
     <section class="section section-alt" id="parcours" aria-labelledby="parcours-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">04</span>Parcours <span class="coord" title="Chartres">48°27′ N · 1°29′ E</span></p>
+          <p class="kicker">Parcours <span class="coord" title="Chartres">48°27′ N · 1°29′ E</span></p>
           <h2 id="parcours-titre">Expériences et formation</h2>
         </header>
         <div class="parcours-grid">
@@ -342,50 +337,50 @@
             <h3 class="col-title">Expériences</h3>
             <!-- À MODIFIER : tes expériences, de la plus récente à la plus ancienne -->
             <ol class="timeline">
-              <li class="tl-item" data-reveal>
+              <li class="tl-item">
                 <p class="tl-date">Sept. 2025 – sept. 2026</p>
                 <h4>Chargé d’études statistiques · alternance</h4>
                 <p class="tl-org">DCGDR Centre-Val de Loire (Assurance Maladie) · Orléans</p>
                 <ul class="tl-points">
-                  <li>Exploitation des données du SNDS et propositions d’action pour le plan de gestion du risque.</li>
-                  <li>Entretiens qualitatifs avec des praticiens-conseils.</li>
-                  <li>Temps de trajet en voiture et en transports en commun, cartographie et portail d’aide à la décision pour les CPAM.</li>
-                  <li>Mémoire de Master 2 noté 18/20.</li>
+                  <li>Exploitation des données du SNDS et propositions d’action pour le plan de gestion du risque</li>
+                  <li>Entretiens qualitatifs avec des praticiens-conseils</li>
+                  <li>Temps de trajet en voiture et en transports en commun, cartographie et portail d’aide à la décision pour les CPAM</li>
+                  <li>Mémoire de Master 2 noté 18/20</li>
                 </ul>
                 <ul class="chips chips-sm"><li>SNDS</li><li>QGIS</li><li>XLSTAT</li><li>OpenTripPlanner</li><li>openrouteservice</li></ul>
               </li>
-              <li class="tl-item" data-reveal>
+              <li class="tl-item">
                 <p class="tl-date">Mars – juillet 2025</p>
                 <h4>Stage · pratiques numériques en santé</h4>
                 <p class="tl-org">URPS Médecins libéraux Centre-Val de Loire · Orléans</p>
                 <ul class="tl-points">
-                  <li>Analyse des résultats d’une enquête auprès des médecins libéraux et exploitation de données quantitatives.</li>
-                  <li>Entretiens qualitatifs avec des professionnels de santé, cartographie et graphiques.</li>
-                  <li>Mémoire de Master 1 sur la téléconsultation et la téléexpertise ; compte rendu d’enquête co-publié.</li>
+                  <li>Analyse des résultats d’une enquête auprès des médecins libéraux et exploitation de données quantitatives</li>
+                  <li>Entretiens qualitatifs avec des professionnels de santé, cartographie et graphiques</li>
+                  <li>Mémoire de Master 1 sur la téléconsultation et la téléexpertise ; compte rendu d’enquête co-publié</li>
                 </ul>
               </li>
-              <li class="tl-item" data-reveal>
+              <li class="tl-item">
                 <p class="tl-date">Sept. 2024 – févr. 2025</p>
                 <h4>Ateliers professionnels · téléconsultation</h4>
                 <p class="tl-org">Forum Vies Mobiles · Saint-Étienne</p>
                 <ul class="tl-points">
-                  <li>Questionnaire sous Sphinx sur les cabines de téléconsultation en pharmacie, cartographie et analyse spatiale, rapport final.</li>
+                  <li>Questionnaire sous Sphinx sur les cabines de téléconsultation en pharmacie, cartographie et analyse spatiale, rapport final</li>
                 </ul>
               </li>
-              <li class="tl-item" data-reveal>
+              <li class="tl-item">
                 <p class="tl-date">Oct. – déc. 2024</p>
                 <h4>Ateliers professionnels · autisme</h4>
                 <p class="tl-org">Domelia Conseil · Saint-Étienne</p>
                 <ul class="tl-points">
-                  <li>Collecte de données, recherche documentaire, cartographie et rédaction de rapports.</li>
+                  <li>Collecte de données, recherche documentaire, cartographie et rédaction de rapports</li>
                 </ul>
               </li>
-              <li class="tl-item" data-reveal>
+              <li class="tl-item">
                 <p class="tl-date">Avril 2022</p>
                 <h4>Stage de terrain</h4>
                 <p class="tl-org">Université Gaston Berger · Fatick, Sénégal</p>
                 <ul class="tl-points">
-                  <li>Impacts des sites industriels sur les conditions de vie à Joal : observations, enquêtes et cartographie.</li>
+                  <li>Impacts des sites industriels sur les conditions de vie à Joal : observations, enquêtes et cartographie</li>
                 </ul>
               </li>
             </ol>
@@ -394,18 +389,18 @@
             <h3 class="col-title">Formation</h3>
             <!-- À MODIFIER : tes diplômes -->
             <ol class="edu-list">
-              <li class="edu-item" data-reveal>
+              <li class="edu-item">
                 <p class="tl-date">2024 – 2026</p>
                 <h4>Master Santé, Environnement et Informations Spatio-temporelles (M1 + M2)</h4>
                 <p class="tl-org">Universités Jean Monnet et Jean Moulin · Saint-Étienne et Lyon</p>
                 <span class="tag">Mention Bien</span>
               </li>
-              <li class="edu-item" data-reveal>
+              <li class="edu-item">
                 <p class="tl-date">2023 – 2024</p>
                 <h4>Licence 3 Géographie et Aménagement</h4>
                 <p class="tl-org">Sorbonne Université · Paris</p>
               </li>
-              <li class="edu-item" data-reveal>
+              <li class="edu-item">
                 <p class="tl-date">2021 – 2022</p>
                 <h4>Licence 3 Géographie</h4>
                 <p class="tl-org">Université Gaston Berger · Saint-Louis, Sénégal</p>
@@ -427,47 +422,47 @@
     <section class="section" id="cartes" aria-labelledby="cartes-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">05</span>Cartographie <span class="coord" title="Blois">47°35′ N · 1°20′ E</span></p>
+          <p class="kicker">Cartographie <span class="coord" title="Blois">47°35′ N · 1°20′ E</span></p>
           <h2 id="cartes-titre">Galerie cartographique</h2>
           <p class="section-intro">Une sélection de cartes produites sous QGIS. Cliquez sur une carte pour l’agrandir.</p>
         </header>
-        <!-- À MODIFIER : remplace chaque image par ton export QGIS (voir README, « Images »).
-             data-full = grande image (visionneuse) · src = vignette · data-legende = texte affiché sous la carte -->
+        <!-- Pour ajouter une carte : voir README, « Images ».
+             data-full = grande image (visionneuse) · src = vignette · data-legende = texte affiché sous la carte agrandie -->
         <ul class="gallery">
-          <li class="gallery-item gallery-wide" data-reveal>
-            <button type="button" class="gallery-btn" data-full="assets/cartes/carte-01.svg" data-legende="Temps d’accès en voiture au cabinet le plus rapide, par commune. Carte provisoire, à remplacer par ton export QGIS.">
-              <img src="assets/cartes/carte-01.svg" alt="Carte provisoire : temps d’accès en voiture" width="1200" height="800" loading="lazy">
-              <span class="gallery-caption"><span class="gallery-num">01</span>Temps d’accès en voiture</span>
+          <li class="gallery-item gallery-wide">
+            <button type="button" class="gallery-btn" data-full="assets/cartes/teleexpertise-flux-cvl.webp" data-legende="Flux de téléexpertise entre les CPTS du Centre-Val de Loire, toutes spécialités, d’avril 2023 à mars 2025. Source : GRADeS Centre-Val de Loire. Mémoire de Master 1, URPS Médecins libéraux.">
+              <img src="assets/cartes/teleexpertise-flux-cvl-mini.webp" alt="Carte des flux de téléexpertise entre les CPTS du Centre-Val de Loire" width="800" height="566" loading="lazy">
+              <span class="gallery-caption"><span class="gallery-num">01</span>Flux de téléexpertise en Centre-Val de Loire</span>
             </button>
           </li>
-          <li class="gallery-item" data-reveal>
-            <button type="button" class="gallery-btn" data-full="assets/cartes/carte-02.svg" data-legende="Temps d’accès en transports en commun et communes sans desserte. Carte provisoire.">
-              <img src="assets/cartes/carte-02.svg" alt="Carte provisoire : temps d’accès en transports en commun" width="1200" height="800" loading="lazy">
-              <span class="gallery-caption"><span class="gallery-num">02</span>Accès en transports en commun</span>
+          <li class="gallery-item">
+            <button type="button" class="gallery-btn" data-full="assets/cartes/typologie-teleconsultation-cvl.webp" data-legende="Typologie des territoires de CPTS selon la téléconsultation, l’offre de soins et le profil socio-démographique. Sources : SIAM ERASME 2023, Observatoire des territoires. Mémoire de Master 1, URPS Médecins libéraux.">
+              <img src="assets/cartes/typologie-teleconsultation-cvl-mini.webp" alt="Carte de la typologie des CPTS du Centre-Val de Loire selon la téléconsultation" width="800" height="566" loading="lazy">
+              <span class="gallery-caption"><span class="gallery-num">02</span>Typologie des CPTS et téléconsultation</span>
             </button>
           </li>
-          <li class="gallery-item" data-reveal>
-            <button type="button" class="gallery-btn" data-full="assets/cartes/carte-03.svg" data-legende="Localisation des cabinets de médecine générale et infirmiers. Carte provisoire.">
-              <img src="assets/cartes/carte-03.svg" alt="Carte provisoire : localisation des cabinets" width="1200" height="800" loading="lazy">
-              <span class="gallery-caption"><span class="gallery-num">03</span>Cabinets médicaux</span>
+          <li class="gallery-item">
+            <button type="button" class="gallery-btn" data-full="assets/cartes/temps-acces-soins-creuse.webp" data-legende="Temps d’accès aux soins de premier et de second recours en Creuse, en analyse bivariée. Sources : Insee, ARS. Réalisée avec Yassine El Amraoui.">
+              <img src="assets/cartes/temps-acces-soins-creuse-mini.webp" alt="Carte bivariée des temps d’accès aux soins en Creuse" width="800" height="566" loading="lazy">
+              <span class="gallery-caption"><span class="gallery-num">03</span>Temps d’accès aux soins en Creuse</span>
             </button>
           </li>
-          <li class="gallery-item" data-reveal>
-            <button type="button" class="gallery-btn" data-full="assets/cartes/carte-04.svg" data-legende="Isochrones de 5 en 5 minutes autour d’un cabinet. Carte provisoire.">
-              <img src="assets/cartes/carte-04.svg" alt="Carte provisoire : isochrones autour d’un cabinet" width="1200" height="800" loading="lazy">
-              <span class="gallery-caption"><span class="gallery-num">04</span>Isochrones autour d’un cabinet</span>
+          <li class="gallery-item">
+            <button type="button" class="gallery-btn" data-full="assets/cartes/transport-interurbain-creuse.webp" data-legende="Accessibilité au réseau de transport collectif interurbain en Creuse, 2025 : arrêts de car à moins de 1, 3 et 5 km. Source : Nouvelle-Aquitaine Mobilités. Réalisée avec Yassine El Amraoui.">
+              <img src="assets/cartes/transport-interurbain-creuse-mini.webp" alt="Carte de l’accessibilité au réseau de cars interurbains en Creuse" width="800" height="566" loading="lazy">
+              <span class="gallery-caption"><span class="gallery-num">04</span>Transport interurbain en Creuse</span>
             </button>
           </li>
-          <li class="gallery-item" data-reveal>
-            <button type="button" class="gallery-btn" data-full="assets/cartes/carte-05.svg" data-legende="Population par commune en cercles proportionnels. Carte provisoire.">
-              <img src="assets/cartes/carte-05.svg" alt="Carte provisoire : population par commune" width="1200" height="800" loading="lazy">
-              <span class="gallery-caption"><span class="gallery-num">05</span>Population par commune</span>
+          <li class="gallery-item">
+            <button type="button" class="gallery-btn" data-full="assets/cartes/pm10-vieillissement-lyon.webp" data-legende="Émissions de PM10 par habitant et part des 65 ans ou plus dans la Métropole de Lyon, en analyse bivariée. Sources : ORCAE, Insee.">
+              <img src="assets/cartes/pm10-vieillissement-lyon-mini.webp" alt="Carte bivariée des émissions de PM10 et du vieillissement dans la Métropole de Lyon" width="800" height="566" loading="lazy">
+              <span class="gallery-caption"><span class="gallery-num">05</span>PM10 et vieillissement à Lyon</span>
             </button>
           </li>
-          <li class="gallery-item" data-reveal>
-            <button type="button" class="gallery-btn" data-full="assets/cartes/carte-06.svg" data-legende="Lignes et arrêts du réseau régional de transports en commun. Carte provisoire.">
-              <img src="assets/cartes/carte-06.svg" alt="Carte provisoire : réseau régional de transports en commun" width="1200" height="800" loading="lazy">
-              <span class="gallery-caption"><span class="gallery-num">06</span>Réseau régional</span>
+          <li class="gallery-item">
+            <button type="button" class="gallery-btn" data-full="assets/cartes/consultants-iris-saint-etienne.webp" data-legende="Téléconsultation en pharmacie à Saint-Étienne : nombre de consultants par IRIS et localisation des pharmacies. Source : enquête par questionnaire, 2025.">
+              <img src="assets/cartes/consultants-iris-saint-etienne-mini.webp" alt="Carte du nombre de téléconsultants par IRIS à Saint-Étienne" width="800" height="566" loading="lazy">
+              <span class="gallery-caption"><span class="gallery-num">06</span>Téléconsultants par IRIS à Saint-Étienne</span>
             </button>
           </li>
         </ul>
@@ -478,23 +473,21 @@
     <section class="section section-alt" id="documents" aria-labelledby="documents-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">06</span>Documents <span class="coord" title="Châteauroux">46°49′ N · 1°42′ E</span></p>
+          <p class="kicker">Documents <span class="coord" title="Châteauroux">46°49′ N · 1°42′ E</span></p>
           <h2 id="documents-titre">Rapports et travaux</h2>
-          <p class="section-intro">Productions consultables en ligne ou à télécharger.</p>
+          <p class="section-intro">Productions consultables en ligne ou à télécharger</p>
         </header>
         <div class="filters" role="group" aria-label="Filtrer les documents par catégorie">
           <button type="button" class="filter-btn" data-filtre="tous" aria-pressed="true">Tous</button>
           <button type="button" class="filter-btn" data-filtre="soins" aria-pressed="false">Accès aux soins</button>
-          <button type="button" class="filter-btn" data-filtre="environnement" aria-pressed="false">Environnement</button>
-          <button type="button" class="filter-btn" data-filtre="methodo" aria-pressed="false">Méthodologie</button>
-        </div>
+          <button type="button" class="filter-btn" data-filtre="environnement" aria-pressed="false">Environnement</button>        </div>
         <!-- À MODIFIER : dépose tes PDF dans docs/ avec ces noms (ou change les liens) :
              les boutons s’activent tout seuls dès que le fichier existe -->
         <ul class="docs-grid">
           <li class="doc-card" data-cat="soins">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Accès aux soins</span></div>
             <h3>Territoires ruraux : santé et mobilité</h3>
-            <p>Étude de cas de la Creuse : accès aux soins, mobilités et préconisations pour un territoire très peu dense.</p>
+            <p>Étude de cas de la Creuse : accès aux soins, mobilités et préconisations pour un territoire très peu dense</p>
             <p class="doc-meta">PDF · 21 p. · 3,2 Mo · Master 2 · 2025–2026 · avec Yassine El Amraoui</p>
             <div class="doc-actions">
               <a class="btn btn-small btn-ghost" href="docs/creuse-sante-mobilite.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
@@ -504,7 +497,7 @@
           <li class="doc-card" data-cat="soins">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Accès aux soins</span></div>
             <h3>Cabines de téléconsultation en pharmacie à Saint-Étienne</h3>
-            <p>Une nouvelle forme d’accès aux soins : questionnaire sur les usages et les mobilités, profil des pharmacies et de la population.</p>
+            <p>Une nouvelle forme d’accès aux soins : questionnaire sur les usages et les mobilités, profil des pharmacies et de la population</p>
             <p class="doc-meta">PDF · 37 p. · 11,9 Mo · ateliers avec le Forum Vies Mobiles · 2024–2025</p>
             <div class="doc-actions">
               <a class="btn btn-small btn-ghost" href="docs/teleconsultation-saint-etienne.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
@@ -514,7 +507,7 @@
           <li class="doc-card" data-cat="environnement">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Environnement</span></div>
             <h3>Pollution et vieillissement dans la Métropole de Lyon</h3>
-            <p>Analyse de données environnementales : application de la méthode des 5A à la relation entre pollution et vieillissement.</p>
+            <p>Analyse de données environnementales : application de la méthode des 5A à la relation entre pollution et vieillissement</p>
             <p class="doc-meta">PDF · 15 p. · 1,4 Mo · Master 2 · 2025–2026 · avec Yassine El Amraoui</p>
             <div class="doc-actions">
               <a class="btn btn-small btn-ghost" href="docs/pollution-vieillissement-lyon.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
@@ -524,37 +517,23 @@
           <li class="doc-card" data-cat="environnement">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Environnement</span></div>
             <h3>Crises hydrologiques et adaptation au changement climatique</h3>
-            <p>Le Verderet et ses aménagements : bassins de rétention, digues et dimensionnement, à partir d’une sortie de terrain.</p>
+            <p>Le Verderet et ses aménagements : bassins de rétention, digues et dimensionnement, à partir d’une sortie de terrain</p>
             <p class="doc-meta">PDF · 13 p. · 3,0 Mo · avec Yassine El Amraoui</p>
             <div class="doc-actions">
               <a class="btn btn-small btn-ghost" href="docs/verderet-changement-climatique.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
               <a class="btn btn-small btn-ghost" href="docs/verderet-changement-climatique.pdf" data-fichier download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Télécharger</a>
             </div>
           </li>
-          <li class="doc-card" data-cat="methodo">
-            <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Méthodologie</span></div>
-            <h3>Note méthodologique : calcul des temps de trajet</h3>
-            <p>Sources, paramétrage des moteurs d’itinéraires, choix du cabinet le plus rapide et limites.</p>
-            <p class="doc-meta">PDF · 2026</p>
-            <div class="doc-actions">
-              <a class="btn btn-small btn-ghost" href="docs/note-methodologique.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
-              <a class="btn btn-small btn-ghost" href="docs/note-methodologique.pdf" data-fichier download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Télécharger</a>
-            </div>
-          </li>
           <li class="doc-card" data-cat="soins">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Mémoire · Master 2</span></div>
             <h3>Soutenir l’accès aux soins des personnes en situation de handicap en Centre-Val de Loire</h3>
             <p>Du démarchage de proximité à la téléconsultation assistée : diagnostic territorial d’une action de gestion du risque, DCGDR Centre-Val de Loire. Noté 18/20.</p>
-            <p class="doc-meta">Version publique en préparation · 2025–2026</p>
-            <div class="doc-actions">
-              <a class="btn btn-small btn-ghost" href="docs/memoire-m2-dcgdr.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
-              <a class="btn btn-small btn-ghost" href="docs/memoire-m2-dcgdr.pdf" data-fichier download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Télécharger</a>
-            </div>
+            <p class="doc-meta">93 p. · 2025–2026 · version publique en préparation</p>
           </li>
           <li class="doc-card" data-cat="soins">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Mémoire · Master 1</span></div>
             <h3>Téléconsultation et téléexpertise : quelle contribution à l’accès aux soins en Centre-Val de Loire&#8239;?</h3>
-            <p>Stage à l’URPS Médecins libéraux Centre-Val de Loire : effets de la télémédecine sur l’accès aux soins et sur la coordination entre professionnels.</p>
+            <p>Stage à l’URPS Médecins libéraux Centre-Val de Loire : effets de la télémédecine sur l’accès aux soins et sur la coordination entre professionnels</p>
             <p class="doc-meta">PDF · 97 p. · 6,3 Mo · 2024–2025</p>
             <div class="doc-actions">
               <a class="btn btn-small btn-ghost" href="docs/memoire-m1-urps-ml.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
@@ -564,7 +543,7 @@
         </ul>
         <p class="filters-empty" id="docs-vide" hidden>Aucun document dans cette catégorie pour l’instant.</p>
 
-        <div class="publications" data-reveal>
+        <div class="publications">
           <h3 class="col-title">Publications</h3>
           <ul class="pub-list">
             <li>
@@ -586,7 +565,7 @@
     <section class="section section-contact" id="contact" aria-labelledby="contact-titre">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker"><span class="kicker-num">07</span>Contact</p>
+          <p class="kicker">Contact</p>
           <h2 id="contact-titre">Parlons de votre territoire</h2>
           <p class="section-intro">Disponible pour un poste ou un projet de thèse sur l’accès aux soins et les technologies de santé. Écrivez-moi.</p>
         </header>
