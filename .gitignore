@@ -1,0 +1,22 @@
+# Originaux lourds : seules les versions allégées sont publiées
+assets/originaux/*
+!assets/originaux/.gitkeep
+
+# PDF posés à la racine : jamais publiés. Ceux à mettre en ligne vont dans docs/
+/*.pdf
+
+# Systèmes et éditeurs
+.claude/
+.DS_Store
+Thumbs.db
+desktop.ini
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+
+# Fichiers temporaires QGIS
+*.qgs~
+*.qgz~
+*.gpkg-wal
+*.gpkg-shm
