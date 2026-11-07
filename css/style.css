@@ -1075,6 +1075,7 @@ a.is-missing::after {
   .contact-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; align-items: start; }
   .hero-legend { display: none; }
+  .legend { position: static; margin-top: 10px; box-shadow: none; }
 }
 
 @media (max-width: 640px) {

@@ -27,13 +27,15 @@
       js: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
       jsIntegrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=',
     },
+    // Fonds Esri « Canvas » gris clair / gris foncé, gratuits et sans clé
+    // (les fonds CARTO exigent désormais une clé dès que le site est en ligne)
     fonds: {
-      light: ['https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
-        'https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png'],
-      dark: ['https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
-        'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png'],
+      light: ['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}'],
+      dark: ['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}'],
     },
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    attribution: 'Fond de carte &copy; <a href="https://www.esri.com">Esri</a>, HERE, Garmin, &copy; contributeurs <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   };
 
   const section = document.getElementById('projet');
@@ -420,9 +422,19 @@
 
     const [urlFond, urlEtiquettes] = CONFIG.fonds[theme()];
     state.tiles = [
-      L.tileLayer(urlFond, { subdomains: 'abcd', maxZoom: 19, attribution: CONFIG.attribution }).addTo(map),
-      L.tileLayer(urlEtiquettes, { subdomains: 'abcd', maxZoom: 19, pane: 'etiquettes' }).addTo(map),
+      L.tileLayer(urlFond, { maxNativeZoom: 16, maxZoom: 19, attribution: CONFIG.attribution }).addTo(map),
+      L.tileLayer(urlEtiquettes, { maxNativeZoom: 16, maxZoom: 19, pane: 'etiquettes' }).addTo(map),
     ];
+
+    // Une seule commune survolée à la fois : si un « mouseout » se perd (page qui défile
+    // sous la souris, réordonnancement du SVG), la précédente est refermée quand même.
+    let survolee = null;
+    const quitter = (couche) => {
+      if (!couche) return;
+      state.layer.resetStyle(couche);
+      couche.closeTooltip();
+      if (survolee === couche) survolee = null;
+    };
 
     state.layer = L.geoJSON(state.data, {
       style,
@@ -430,12 +442,18 @@
         couche.bindTooltip(() => infobulle(feature.properties), { sticky: true, className: 'tt', direction: 'top', offset: [0, -8] });
         couche.bindPopup(() => fenetre(feature.properties), { maxWidth: 280 });
         couche.on({
-          mouseover: (e) => { e.target.setStyle({ weight: 2.2, color: state.colors.encre }); e.target.bringToFront(); },
-          mouseout: (e) => state.layer.resetStyle(e.target),
+          mouseover: (e) => {
+            if (survolee && survolee !== e.target) quitter(survolee);
+            survolee = e.target;
+            e.target.setStyle({ weight: 2.2, color: state.colors.encre });
+            e.target.bringToFront();
+          },
+          mouseout: (e) => quitter(e.target),
         });
         state.layers.set(cle(feature.properties), couche);
       },
     }).addTo(map);
+    window.addEventListener('scroll', () => quitter(survolee), { passive: true });
 
     const limites = state.layer.getBounds();
     map.fitBounds(limites, { padding: [12, 12] });
@@ -444,7 +462,7 @@
     // Molette activée seulement après un clic : la page défile normalement
     map.on('click focus', () => map.scrollWheelZoom.enable());
     map.on('blur', () => map.scrollWheelZoom.disable());
-    mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+    mapEl.addEventListener('mouseleave', () => { map.scrollWheelZoom.disable(); quitter(survolee); });
 
     if ('ResizeObserver' in window) new ResizeObserver(() => map.invalidateSize()).observe(mapEl);
     $('recherche-commune').disabled = false;
