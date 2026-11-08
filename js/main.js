@@ -466,6 +466,14 @@
   const annee = document.getElementById('annee');
   if (annee) annee.textContent = String(new Date().getFullYear());
 
+  /* ---------- FAQ : repliée par défaut, ouverte d'office quand on y va par le menu ou par #faq ---------- */
+  const faqBloc = document.getElementById('faq-liste');
+  if (faqBloc) {
+    const ouvrirFaq = () => { faqBloc.open = true; };
+    if (location.hash === '#faq') ouvrirFaq();
+    document.querySelectorAll('a[href="#faq"]').forEach((a) => a.addEventListener('click', ouvrirFaq));
+  }
+
   /* ---------- Date de dernière mise à jour ----------
      GitHub Pages envoie la date de la dernière publication (en-tête Last-Modified),
      que le navigateur expose dans document.lastModified. Sans cet en-tête, le

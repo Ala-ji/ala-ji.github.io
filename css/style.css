@@ -887,6 +887,15 @@ a.is-missing:hover { background: var(--surface); }
 .faq-chev { width: 18px; height: 18px; color: var(--ink-faint); transition: transform 0.2s var(--ease), color 0.15s var(--ease); }
 .faq-item[open] .faq-chev { transform: rotate(90deg); color: var(--accent-strong); }
 .faq-item p { max-width: 68ch; margin: -4px 0 20px; color: var(--ink-soft); }
+/* La liste entière reste repliée derrière un bouton, pour ne pas allonger la page */
+.faq-bloc > summary { list-style: none; }
+.faq-bloc > summary::-webkit-details-marker { display: none; }
+.faq-bascule .quand-ouvert,
+.faq-bloc[open] > .faq-bascule .quand-ferme { display: none; }
+.faq-bloc[open] > .faq-bascule .quand-ouvert { display: inline; }
+.faq-bascule-chev { width: 16px; height: 16px; transform: rotate(90deg); transition: transform 0.2s var(--ease); }
+.faq-bloc[open] > .faq-bascule .faq-bascule-chev { transform: rotate(-90deg); }
+.faq-bloc[open] > .faq { margin-top: 24px; }
 
 /* 7. Carte interactive (Leaflet) ------------------------------------------- */
 .leaflet-container { background: var(--bg-alt); font-family: var(--font-body); }
