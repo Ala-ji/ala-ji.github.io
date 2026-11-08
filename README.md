@@ -14,6 +14,8 @@ Puis ouvrir <http://localhost:8000>. Un double-clic sur `index.html` ne suffit p
 
 ```
 index.html                       la page (textes à personnaliser : chercher « À MODIFIER »)
+Portfolio/index.html             adresse de secours : ala-ji.github.io/Portfolio mène à l'accueil
+404.html                         page introuvable ; renvoie aussi /portfolio (toute casse) vers l'accueil
 css/style.css                    le design (couleurs et polices en tête de fichier)
 js/main.js                       thème, menu, animation d'accueil, galerie, documents
 js/carte.js                      carte interactive (démonstration) du projet phare
