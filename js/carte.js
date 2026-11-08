@@ -92,9 +92,9 @@
   function lireCouleurs() {
     const cs = getComputedStyle(document.documentElement);
     state.colors = {
-      nul: cs.getPropertyValue('--map-null').trim() || '#b4b8b0',
+      nul: cs.getPropertyValue('--map-null').trim() || '#a8b3c2',
       trait: cs.getPropertyValue('--map-stroke').trim() || '#ffffff',
-      encre: cs.getPropertyValue('--ink').trim() || '#1b2a2f',
+      encre: cs.getPropertyValue('--ink').trim() || '#1e293b',
     };
   }
 

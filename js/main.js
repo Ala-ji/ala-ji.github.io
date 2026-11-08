@@ -104,7 +104,7 @@
     let W = 0, H = 0, cell = 10, cols = 0, rows = 0, tMax = 0;
     let field = null, cmin = null, cmax = null, sources = [];
     let running = false, raf = 0, last = 0, onScreen = true;
-    const colors = { ink: '#1b2a2f', accent: '#b5401f', bg: '#f6f3ec' };
+    const colors = { ink: '#1e293b', accent: '#0d9488', bg: '#f8fafc' };
 
     function mulberry32(a) {
       return function () {

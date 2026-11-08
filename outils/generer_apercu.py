@@ -18,13 +18,14 @@ from PIL import Image, ImageDraw, ImageFont
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 L, H, S = 1200, 630, 2  # dessin à 2x puis réduction, pour des bords lissés
 
-FOND = (15, 23, 25)
-CARTE_FOND = (19, 30, 33)
-ENCRE = (236, 231, 220)
-ENCRE_DOUCE = (180, 187, 182)
-ENCRE_PALE = (141, 152, 148)
-ACCENT = (255, 138, 92)
-NUL = (62, 72, 74)
+FOND = (15, 23, 42)  # bleu nuit, comme le thème sombre du site
+CARTE_FOND = (30, 41, 59)
+ENCRE = (241, 245, 249)
+ENCRE_DOUCE = (203, 213, 225)
+ENCRE_PALE = (148, 163, 184)
+ACCENT = (45, 212, 191)  # menthe
+NUL = (71, 85, 105)
+FILET = (51, 65, 85)
 RAMPE = [(253, 231, 200), (248, 189, 132), (238, 138, 85), (209, 84, 59), (155, 44, 44)]
 
 POLICES = {
@@ -113,7 +114,7 @@ def main():
 
     # Carte : cadre puis communes, projetées (longitude corrigée de la latitude moyenne)
     bx0, by0, bx1, by1 = 586, 26, 1174, 604
-    d.rounded_rectangle([bx0 * S, by0 * S, bx1 * S, by1 * S], radius=18 * S, fill=CARTE_FOND, outline=(36, 50, 52), width=S)
+    d.rounded_rectangle([bx0 * S, by0 * S, bx1 * S, by1 * S], radius=18 * S, fill=CARTE_FOND, outline=FILET, width=S)
     anneaux = []
     lats = []
     for ft in data["features"]:

@@ -1,8 +1,10 @@
 /* ==========================================================================
    Portfolio · feuille de style
-   Direction : l'atlas et le carnet de terrain. Papier crème, encre bleu-noir,
-   un seul accent (le crayon rouge du cartographe), réservé à l'action
-   principale, à la carte et au chiffre qui compte.
+   Direction : clair, lisible et professionnel. Fond ardoise très pâle, cartes
+   blanches cernées d'un filet, texte ardoise ; en sombre, bleu nuit façon
+   tableau de bord. Un accent teal (menthe en sombre) pour les boutons, les
+   liens, les étiquettes et les chiffres qui comptent. En clair, le texte et
+   les fonds de bouton prennent le teal foncé (#0f766e) pour tenir 4,5:1.
 
    1. Jetons (couleurs, typographie, espacements) · thèmes clair et sombre
    2. Base
@@ -21,28 +23,32 @@
 /* 1. Jetons ---------------------------------------------------------------- */
 :root {
   color-scheme: light;
-  --bg: #f6f3ec;
-  --bg-alt: #efe9df;
-  --surface: #fffdf8;
-  --ink: #1b2a2f;
-  --ink-soft: #46565b;
-  --ink-faint: #5f6d6d;
-  --line: rgba(27, 42, 47, 0.09);
-  --line-strong: rgba(27, 42, 47, 0.16);
-  --accent: #b5401f;
-  --accent-hover: #963217;
-  --on-accent: #fffaf5;
+  --bg: #f8fafc;
+  --bg-alt: #f1f5f9;
+  --surface: #ffffff;
+  --ink: #1e293b;
+  --ink-strong: #0f172a;
+  --ink-soft: #475569;
+  --ink-faint: #5b6b80;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --accent: #0d9488;
+  --accent-strong: #0f766e;
+  --accent-hover: #115e59;
+  --accent-soft: #f0fdfa;
+  --accent-line: rgba(13, 148, 136, 0.28);
+  --on-accent: #ffffff;
   --positive: #2f7d4f;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.06);
-  --header-bg: rgba(246, 243, 236, 0.86);
-  --veil-rgb: 246, 243, 236;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --header-bg: rgba(248, 250, 252, 0.86);
+  --veil-rgb: 248, 250, 252;
   --map-stroke: rgba(255, 255, 255, 0.8);
-  --map-null: #b4b8b0;
-  --contact-bg: #1b2a2f;
-  --contact-ink: #f6f3ec;
-  --contact-muted: rgba(246, 243, 236, 0.72);
-  --contact-line: rgba(246, 243, 236, 0.14);
-  --contact-line-strong: rgba(246, 243, 236, 0.28);
+  --map-null: #a8b3c2;
+  --contact-bg: #0f172a;
+  --contact-ink: #f1f5f9;
+  --contact-muted: rgba(241, 245, 249, 0.72);
+  --contact-line: rgba(241, 245, 249, 0.14);
+  --contact-line-strong: rgba(241, 245, 249, 0.28);
 
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -57,55 +63,64 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0f1719;
-  --bg-alt: #162124;
-  --surface: #182428;
-  --ink: #ece7dc;
-  --ink-soft: #b4bbb6;
-  --ink-faint: #8d9894;
-  --line: rgba(236, 231, 220, 0.08);
-  --line-strong: rgba(236, 231, 220, 0.16);
-  --accent: #ff8a5c;
-  --accent-hover: #ffa47f;
-  --on-accent: #1d0f0a;
+  --bg: #0f172a;
+  --bg-alt: #131d33;
+  --surface: #1e293b;
+  --ink: #f1f5f9;
+  --ink-strong: #f8fafc;
+  --ink-soft: #cbd5e1;
+  --ink-faint: #94a3b8;
+  --line: #334155;
+  --line-strong: #475569;
+  --accent: #2dd4bf;
+  --accent-strong: #2dd4bf;
+  --accent-hover: #5eead4;
+  --accent-soft: rgba(45, 212, 191, 0.12);
+  --accent-line: rgba(45, 212, 191, 0.32);
+  --on-accent: #0f172a;
   --positive: #4cc38a;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
-  --header-bg: rgba(15, 23, 25, 0.86);
-  --veil-rgb: 15, 23, 25;
-  --map-stroke: rgba(15, 23, 25, 0.6);
-  --map-null: #3e484a;
-  --contact-bg: #1a272b;
-  --contact-ink: #ece7dc;
-  --contact-muted: #b4bbb6;
-  --contact-line: rgba(236, 231, 220, 0.12);
-  --contact-line-strong: rgba(236, 231, 220, 0.24);
+  --header-bg: rgba(15, 23, 42, 0.86);
+  --veil-rgb: 15, 23, 42;
+  --map-stroke: rgba(15, 23, 42, 0.6);
+  --map-null: #475569;
+  --contact-bg: #1e293b;
+  --contact-ink: #f1f5f9;
+  --contact-muted: #cbd5e1;
+  --contact-line: rgba(241, 245, 249, 0.12);
+  --contact-line-strong: rgba(241, 245, 249, 0.24);
 }
 
 /* Sans JavaScript : on suit le réglage du système */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --bg: #0f1719;
-    --bg-alt: #162124;
-    --surface: #182428;
-    --ink: #ece7dc;
-    --ink-soft: #b4bbb6;
-    --ink-faint: #8d9894;
-    --line: rgba(236, 231, 220, 0.08);
-    --line-strong: rgba(236, 231, 220, 0.16);
-    --accent: #ff8a5c;
-    --accent-hover: #ffa47f;
-    --on-accent: #1d0f0a;
+    --bg: #0f172a;
+    --bg-alt: #131d33;
+    --surface: #1e293b;
+    --ink: #f1f5f9;
+    --ink-strong: #f8fafc;
+    --ink-soft: #cbd5e1;
+    --ink-faint: #94a3b8;
+    --line: #334155;
+    --line-strong: #475569;
+    --accent: #2dd4bf;
+    --accent-strong: #2dd4bf;
+    --accent-hover: #5eead4;
+    --accent-soft: rgba(45, 212, 191, 0.12);
+    --accent-line: rgba(45, 212, 191, 0.32);
+    --on-accent: #0f172a;
     --positive: #4cc38a;
-    --header-bg: rgba(15, 23, 25, 0.86);
-    --veil-rgb: 15, 23, 25;
-    --map-stroke: rgba(15, 23, 25, 0.6);
-    --map-null: #3e484a;
-    --contact-bg: #1a272b;
-    --contact-ink: #ece7dc;
-    --contact-muted: #b4bbb6;
-    --contact-line: rgba(236, 231, 220, 0.12);
-    --contact-line-strong: rgba(236, 231, 220, 0.24);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --header-bg: rgba(15, 23, 42, 0.86);
+    --veil-rgb: 15, 23, 42;
+    --map-stroke: rgba(15, 23, 42, 0.6);
+    --map-null: #475569;
+    --contact-bg: #1e293b;
+    --contact-ink: #f1f5f9;
+    --contact-muted: #cbd5e1;
+    --contact-line: rgba(241, 245, 249, 0.12);
+    --contact-line-strong: rgba(241, 245, 249, 0.24);
   }
 }
 
@@ -136,12 +151,15 @@ body:has(dialog[open]) { overflow: hidden; }
 img, svg, canvas { display: block; max-width: 100%; }
 img { height: auto; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-h1, h2, h3, h4 { margin: 0; color: var(--ink); font-weight: 500; }
+main p a:not([class]) { color: var(--accent-strong); text-decoration-color: var(--accent-line); }
+main p a:not([class]):hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+h1, h2, h3, h4 { margin: 0; color: var(--ink-strong); font-weight: 500; }
 p { margin: 0 0 16px; }
 ul, ol { margin: 0; padding: 0; }
 button, input { font: inherit; color: inherit; }
 strong { font-weight: 600; }
-::selection { background: var(--accent); color: var(--on-accent); }
+::selection { background: var(--accent-strong); color: var(--on-accent); }
+:root { accent-color: var(--accent-strong); caret-color: var(--accent-strong); scrollbar-color: var(--line-strong) var(--bg); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 
 .visually-hidden {
@@ -206,7 +224,7 @@ strong { font-weight: 600; }
 }
 .btn:active { transform: scale(0.98); }
 .btn .icon { width: 16px; height: 16px; }
-.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary { background: var(--accent-strong); color: var(--on-accent); }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-ghost { border-color: var(--line-strong); background: var(--surface); color: var(--ink); }
 .btn-ghost:hover { background: var(--bg-alt); }
@@ -254,9 +272,10 @@ a.is-missing:hover { background: var(--surface); }
 .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
 .chips li {
   padding: 4px 8px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--accent-line);
   border-radius: var(--radius-tag);
-  color: var(--ink-soft);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
   font-size: 0.8125rem;
   line-height: 1.4;
 }
@@ -265,9 +284,10 @@ a.is-missing:hover { background: var(--surface); }
 .tag {
   display: inline-block;
   padding: 2px 8px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--accent-line);
   border-radius: var(--radius-tag);
-  color: var(--ink-soft);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
   font-size: 0.75rem;
   line-height: 1.6;
 }
@@ -745,7 +765,8 @@ a.is-missing:hover { background: var(--surface); }
 .cert-list { list-style: none; display: grid; gap: 12px; }
 .cert-list li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; align-items: baseline; color: var(--ink-soft); font-size: 0.9375rem; }
 .cert-list .tl-date { margin: 0; }
-.cert-link { display: inline-flex; align-items: center; gap: 4px; margin-left: 4px; color: var(--ink); font-size: 0.8125rem; white-space: nowrap; }
+.cert-link { display: inline-flex; align-items: center; gap: 4px; margin-left: 4px; color: var(--accent-strong); font-size: 0.8125rem; white-space: nowrap; }
+.cert-link:hover { color: var(--accent-hover); }
 .cert-link .icon { width: 14px; height: 14px; }
 
 /* Galerie : la carte reste entière, la légende est sous l'image */
@@ -802,7 +823,7 @@ a.is-missing:hover { background: var(--surface); }
   transition: background-color 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 .filter-btn:hover { color: var(--ink); background: var(--surface); }
-.filter-btn[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+.filter-btn[aria-pressed="true"] { border-color: var(--accent-strong); background: var(--accent-strong); color: var(--on-accent); }
 .docs-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 .doc-card {
   display: flex;
@@ -898,11 +919,11 @@ a.is-missing:hover { background: var(--surface); }
   margin: 0;
   padding: 0;
   border: 0;
-  background: rgba(8, 12, 13, 0.95);
-  color: #f2efe8;
+  background: rgba(2, 6, 23, 0.95);
+  color: #f1f5f9;
 }
 .lightbox[open] { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
-.lightbox::backdrop { background: rgba(8, 12, 13, 0.6); }
+.lightbox::backdrop { background: rgba(2, 6, 23, 0.6); }
 .lb-figure {
   display: flex;
   flex-direction: column;
@@ -919,23 +940,23 @@ a.is-missing:hover { background: var(--surface); }
   border-radius: var(--radius-control);
   background: #fff;
 }
-.lb-figure figcaption { max-width: 880px; color: rgba(242, 239, 232, 0.82); font-size: 0.9375rem; text-align: center; }
-.lb-count { display: block; margin-bottom: 4px; color: rgba(242, 239, 232, 0.56); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.lb-figure figcaption { max-width: 880px; color: rgba(241, 245, 249, 0.82); font-size: 0.9375rem; text-align: center; }
+.lb-count { display: block; margin-bottom: 4px; color: rgba(241, 245, 249, 0.56); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
 .lb-btn {
   display: grid;
   place-items: center;
   width: 44px; height: 44px;
   margin: 0 12px;
   padding: 0;
-  border: 1px solid rgba(242, 239, 232, 0.24);
+  border: 1px solid rgba(241, 245, 249, 0.24);
   border-radius: 10px;
-  background: rgba(242, 239, 232, 0.06);
+  background: rgba(241, 245, 249, 0.06);
   color: inherit;
   cursor: pointer;
   transition: background-color 0.15s var(--ease);
 }
-.lb-btn:hover { background: rgba(242, 239, 232, 0.14); }
-.lb-btn:focus-visible { outline-color: #f2efe8; }
+.lb-btn:hover { background: rgba(241, 245, 249, 0.14); }
+.lb-btn:focus-visible { outline-color: #f1f5f9; }
 .lb-close { position: absolute; top: 16px; right: 16px; margin: 0; }
 
 /* 9. Pied de page ---------------------------------------------------------- */
