@@ -745,6 +745,8 @@ a.is-missing:hover { background: var(--surface); }
 .cert-list { list-style: none; display: grid; gap: 12px; }
 .cert-list li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; align-items: baseline; color: var(--ink-soft); font-size: 0.9375rem; }
 .cert-list .tl-date { margin: 0; }
+.cert-link { display: inline-flex; align-items: center; gap: 4px; margin-left: 4px; color: var(--ink); font-size: 0.8125rem; white-space: nowrap; }
+.cert-link .icon { width: 14px; height: 14px; }
 
 /* Galerie : la carte reste entière, la légende est sous l'image */
 .gallery { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
