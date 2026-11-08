@@ -93,4 +93,4 @@ Le script régénère `assets/img/apercu-linkedin.png` (1200 × 630 px) à parti
 
 ## Crédits
 
-Fond de carte © Esri, HERE, Garmin, contributeurs OpenStreetMap. Contours communaux : IGN Admin Express (via API Géo). Population : INSEE. Carte web : [Leaflet](https://leafletjs.com) (licence BSD-2). Polices : Fraunces et Inter (SIL Open Font License).
+Site codé avec Claude Code. La date « Mis à jour le » se met à jour seule à chaque publication (date envoyée par GitHub Pages) ; celle écrite dans `index.html` ne sert que de secours. Fond de carte © Esri, HERE, Garmin, contributeurs OpenStreetMap. Contours communaux : IGN Admin Express (via API Géo). Population : INSEE. Carte web : [Leaflet](https://leafletjs.com) (licence BSD-2). Polices : Fraunces et Inter (SIL Open Font License).

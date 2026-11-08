@@ -465,4 +465,20 @@
   /* ---------- Année du pied de page ---------- */
   const annee = document.getElementById('annee');
   if (annee) annee.textContent = String(new Date().getFullYear());
+
+  /* ---------- Date de dernière mise à jour ----------
+     GitHub Pages envoie la date de la dernière publication (en-tête Last-Modified),
+     que le navigateur expose dans document.lastModified. Sans cet en-tête, le
+     navigateur renvoie l'heure courante : on garde alors la date écrite dans la page. */
+  const maj = new Date(document.lastModified);
+  const majs = document.querySelectorAll('time[data-maj]');
+  if (majs.length && !Number.isNaN(maj.getTime()) && Date.now() - maj.getTime() > 60000) {
+    majs.forEach((t) => {
+      const ecrite = new Date(t.getAttribute('datetime'));
+      if (Number.isNaN(ecrite.getTime()) || maj > ecrite) {
+        t.setAttribute('datetime', maj.toISOString().slice(0, 10));
+        t.textContent = maj.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+    });
+  }
 })();
