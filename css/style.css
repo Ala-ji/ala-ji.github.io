@@ -259,16 +259,6 @@ a.is-missing:hover { background: var(--surface); }
   font-size: 0.875rem;
   font-weight: 500;
 }
-.coord {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--ink-faint);
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
-}
-.coord::before { content: ""; width: 16px; height: 1px; background: var(--line-strong); }
-
 .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
 .chips li {
   padding: 4px 8px;
