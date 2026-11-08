@@ -5,6 +5,11 @@ assets/originaux/*
 # PDF posés à la racine : jamais publiés. Ceux à mettre en ligne vont dans docs/
 /*.pdf
 
+# Fichiers de travail d'Impeccable : privés, jamais publiés sur le site
+/PRODUCT.md
+/DESIGN.md
+.impeccable/
+
 # Systèmes et éditeurs
 .claude/
 .DS_Store
