@@ -365,7 +365,7 @@
 
   /* ---------- Visionneuse de la galerie ---------- */
   const dialog = document.getElementById('lightbox');
-  const galleryBtns = [...document.querySelectorAll('.gallery-btn')];
+  const galleryBtns = [...document.querySelectorAll('.gallery-btn, .shot-btn')];
   if (dialog && galleryBtns.length) {
     const lbImg = document.getElementById('lb-img');
     const lbLegende = document.getElementById('lb-legende');

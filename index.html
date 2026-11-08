@@ -171,7 +171,7 @@
           <div class="about-text">
             <!-- À MODIFIER : ta présentation (trois paragraphes courts suffisent) -->
             <p class="lead">Géographe de la santé, je modélise les territoires de santé à plusieurs échelles et j’étudie l’<strong>adoption des technologies de santé</strong>, en particulier la téléconsultation, par les professionnels comme par les publics vulnérables.</p>
-            <p>Titulaire du master Santé, Environnement et Informations Spatio-temporelles (universités Jean Monnet et Jean Moulin, mention Bien), j’ai conduit mon mémoire en alternance à la DCGDR Centre-Val de Loire : l’accès aux soins des personnes en situation de handicap, du démarchage de proximité à la téléconsultation assistée. Il a débouché sur un portail cartographique d’aide à la décision destiné aux CPAM.</p>
+            <p>Titulaire du master Santé, Environnement et Informations Spatio-temporelles (universités Jean Monnet et Jean Moulin, mention Bien), j’ai conduit mon mémoire en alternance à la DCGDR Centre-Val de Loire : l’accès aux soins des personnes en situation de handicap, du démarchage de proximité à la téléconsultation assistée. Il a débouché sur un <a href="#portail">portail cartographique</a> d’aide à la décision destiné aux CPAM.</p>
             <p>Mes terrains vont du Centre-Val de Loire à la Creuse, de Lyon à Saint-Étienne, et jusqu’à Joal, au Sénégal. Mes outils : QGIS et ArcGIS Pro, les données du SNDS, XLSTAT et R pour les statistiques, les enquêtes par questionnaire et par entretien. Prochaine étape : une thèse sur l’acceptabilité des technologies au sein des territoires de santé.</p>
           </div>
           <!-- À MODIFIER : pour ajouter ta photo, voir README, « Images » -->
@@ -252,7 +252,7 @@
           </article>
           <article class="context-card">
             <h3>Les livrables</h3>
-            <p>Un diagnostic territorial, les temps de trajet par mode, un classement des situations d’accès et un portail cartographique d’aide à la décision pour les CPAM</p>
+            <p>Un diagnostic territorial, les temps de trajet par mode, un classement des situations d’accès et un <a href="#portail">portail cartographique</a> d’aide à la décision pour les CPAM</p>
           </article>
         </div>
 
@@ -291,6 +291,35 @@
           </div>
           <p class="results-text"><strong>Infirmiers.</strong> Le soin infirmier se fait à domicile : seuls les trajets de 8&nbsp;km ou moins par la route sont retenus. 243 patients sur 535 ont un infirmier à cette distance (médiane 3,1&nbsp;km, 6,6&nbsp;min) ; 292 n’en ont pas.</p>
           <p class="note">Source : note méthodologique, DCGDR Centre-Val de Loire, juillet 2026. Voiture : openrouteservice. Transports en commun : OpenTripPlanner, départ un mardi à 8&nbsp;h, 19 réseaux régionaux et la SNCF, trajets de plus de 90&nbsp;min jugés non praticables. Résultats agrégés : aucune donnée individuelle n’est publiée.</p>
+        </div>
+
+        <div class="results" id="portail">
+          <div class="results-head">
+            <h3 class="results-title">Le portail de l’action GDR</h3>
+            <p class="results-sub">Outil interne d’aide à la décision pour les CPAM · Leaflet · juillet 2026</p>
+          </div>
+          <p class="results-text">Pour organiser le démarchage de proximité, les CPAM doivent voir sur une même carte qui est loin d’un médecin, par quel mode, et quel infirmier peut se déplacer. J’ai conçu ce portail web : il réunit les 535 assurés, les 88&nbsp;médecins généralistes et 71&nbsp;infirmiers retenus, les trajets en voiture et en transports en commun vers le médecin le plus rapide, et les déplacements possibles des infirmiers à 8&nbsp;km ou moins.</p>
+          <ul class="portal-features">
+            <li>Couches préparées et stylées dans QGIS, publiées en GeoJSON et affichées avec Leaflet&nbsp;1.9</li>
+            <li>Filtre attributaire : couche, champ, huit opérateurs, valeurs proposées, entités surlignées et comptées</li>
+            <li>Regroupement des points, mesure des distances, recherche d’adresse, mini-carte, plein écran, fond OpenStreetMap ou satellite</li>
+            <li>Utilisable sur téléphone : le panneau des couches s’escamote</li>
+          </ul>
+          <div class="portal-shots">
+            <figure>
+              <button type="button" class="shot-btn" data-full="assets/portail/portail-vue.webp" data-legende="Portail de l’action GDR, vue régionale : panneau des sept couches et cabinets regroupés. Capture d’une copie dont les couches individuelles sont vidées. Fond © contributeurs OpenStreetMap.">
+                <img src="assets/portail/portail-vue-mini.webp" alt="Capture du portail : panneau des sept couches et carte du Centre-Val de Loire avec les cabinets de médecins généralistes et d’infirmiers regroupés" width="800" height="500" loading="lazy">
+              </button>
+              <figcaption>Vue régionale : les sept couches et les cabinets regroupés</figcaption>
+            </figure>
+            <figure>
+              <button type="button" class="shot-btn" data-full="assets/portail/portail-zoom.webp" data-legende="Portail de l’action GDR autour d’Orléans : panneau de filtre attributaire et cabinets de médecins généralistes et d’infirmiers. Capture d’une copie dont les couches individuelles sont vidées. Fond © contributeurs OpenStreetMap.">
+                <img src="assets/portail/portail-zoom-mini.webp" alt="Capture du portail autour d’Orléans : panneau de filtre attributaire et cabinets de médecins généralistes et d’infirmiers" width="800" height="500" loading="lazy">
+              </button>
+              <figcaption>Autour d’Orléans : le filtre attributaire et les cabinets</figcaption>
+            </figure>
+          </div>
+          <p class="note">Accès réservé : le portail affiche des données personnelles de l’Assurance Maladie (domiciles et trajets des assurés). Les captures viennent d’une copie dont les couches individuelles ont été vidées : seuls les cabinets et le contour régional apparaissent. Fond de carte © contributeurs OpenStreetMap.</p>
         </div>
 
         <div class="viz" id="viz">
