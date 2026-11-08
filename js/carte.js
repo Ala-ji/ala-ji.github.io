@@ -139,7 +139,7 @@
       console.warn('Carte : les données n’ont pas pu être chargées.', e);
       message('Les données de la carte n’ont pas pu être chargées.', () => { started = false; lancer(); });
       $('viz-source').textContent = 'Données indisponibles.';
-      $('tableau-corps').innerHTML = '<tr><td colspan="5">Données indisponibles.</td></tr>';
+      if ($('tableau-corps')) $('tableau-corps').innerHTML = '<tr><td colspan="5">Données indisponibles.</td></tr>';
       return;
     }
     state.data = data;
@@ -256,9 +256,12 @@
     requestAnimationFrame(pas);
   }
 
+  // Chiffres clés et tableau calculés depuis les données : facultatifs (absents de la page
+  // quand la carte n'est qu'une démonstration)
   function afficherChiffresCles() {
-    const chiffres = calculerChiffres();
     const bloc = $('kpis');
+    if (!bloc) return;
+    const chiffres = calculerChiffres();
     const go = () => {
       bloc.querySelectorAll('[data-kpi]').forEach((el) => {
         const k = el.dataset.kpi;
@@ -303,6 +306,7 @@
   }
 
   function afficherTableau() {
+    if (!$('tableau-corps')) return;
     const { m, lignes, nul, total, totalPop } = repartition();
     const libelles = libellesClasses(m.seuils);
     const ligne = (couleur, libelle, d) => {

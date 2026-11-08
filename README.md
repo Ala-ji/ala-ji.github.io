@@ -16,23 +16,23 @@ Puis ouvrir <http://localhost:8000>. Un double-clic sur `index.html` ne suffit p
 index.html                       la page (textes à personnaliser : chercher « À MODIFIER »)
 css/style.css                    le design (couleurs et polices en tête de fichier)
 js/main.js                       thème, menu, animation d'accueil, galerie, documents
-js/carte.js                      carte interactive, chiffres clés et tableau du projet phare
+js/carte.js                      carte interactive (démonstration) du projet phare
 data/communes-cvl-demo.geojson   données de démonstration de la carte (à remplacer)
-assets/cartes/                   images de la galerie (provisoires)
-assets/img/                      portrait, favicon, aperçu LinkedIn
+assets/cartes/                   cartes de la galerie (WebP et vignettes)
+assets/img/                      favicon, aperçu LinkedIn
 assets/originaux/                tes exports en pleine résolution (non publiés)
-docs/                            PDF : CV, note méthodologique, mémoire…
+docs/                            PDF : CV, rapports, note méthodologique, mémoires, procès-verbal
 outils/                          scripts Python : images allégées, aperçu LinkedIn
 ```
 
 ## Personnaliser
 
 1. Ouvre `index.html` et cherche `À MODIFIER` : nom, titre, présentation, compétences, parcours, contact.
-2. Dépose dans `docs/` les PDF à publier, sous ces noms : `cv.pdf`, `creuse-sante-mobilite.pdf`, `teleconsultation-saint-etienne.pdf`, `pollution-vieillissement-lyon.pdf`, `verderet-changement-climatique.pdf`, `note-methodologique.pdf`, `memoire.pdf`. Les boutons s'activent tout seuls ; tant qu'un fichier manque, son bouton reste grisé avec la mention « bientôt ». Les PDF laissés à la racine du dossier ne sont jamais publiés (règle dans `.gitignore`) : c'est là que restent les documents privés, comme les procès-verbaux de soutenance.
+2. Dépose dans `docs/` les PDF à publier, sous ces noms : `cv.pdf`, `creuse-sante-mobilite.pdf`, `teleconsultation-saint-etienne.pdf`, `pollution-vieillissement-lyon.pdf`, `verderet-changement-climatique.pdf`, `note-methodologique.pdf`, `memoire-m1-urps-ml.pdf`, `memoire-m2-version-publique.pdf`, `pv-soutenance-m2.pdf`. Les boutons s'activent tout seuls ; tant qu'un fichier manque, son bouton reste grisé avec la mention « bientôt ». Les PDF laissés à la racine du dossier ne sont jamais publiés (règle dans `.gitignore`) : c'est là que restent les originaux privés (procès-verbal signé, mémoire complet). Seules leurs versions publiques vont dans `docs/` : le procès-verbal sans signatures ni numéro étudiant, le mémoire de M2 sans les cartes ni les listes qui localisent des assurés.
 
 ## Brancher tes résultats sur la carte
 
-La carte, les quatre chiffres clés et le tableau sont calculés à partir d'un seul fichier GeoJSON, une entité par commune :
+Les chiffres du bloc « Résultats de l'étude » sont écrits directement dans `index.html`, d'après la note méthodologique. La carte interactive, elle, est calculée à partir d'un seul fichier GeoJSON, une entité par commune :
 
 | Champ        | Contenu                                                        |
 |--------------|----------------------------------------------------------------|
@@ -43,7 +43,7 @@ La carte, les quatre chiffres clés et le tableau sont calculés à partir d'un 
 | `t_voiture`  | minutes jusqu'au cabinet le plus rapide, en voiture            |
 | `t_tc`       | minutes en transports en commun (vide si aucune desserte)      |
 
-Dans QGIS : clic droit sur la couche → *Exporter* → *Sauvegarder les entités sous…* → format **GeoJSON**, SCR **EPSG:4326**, option `COORDINATE_PRECISION` = 5. Au-delà de 3 Mo, simplifie d'abord les géométries (*Vecteur → Outils de géométrie → Simplifier*, tolérance d'environ 0,0005°). Indique ensuite le nom du fichier dans `js/carte.js` (`CONFIG.donnees`). Les seuils des classes et des chiffres clés se règlent au même endroit.
+Dans QGIS : clic droit sur la couche → *Exporter* → *Sauvegarder les entités sous…* → format **GeoJSON**, SCR **EPSG:4326**, option `COORDINATE_PRECISION` = 5. Au-delà de 3 Mo, simplifie d'abord les géométries (*Vecteur → Outils de géométrie → Simplifier*, tolérance d'environ 0,0005°). Indique ensuite le nom du fichier dans `js/carte.js` (`CONFIG.donnees`). Les seuils des classes se règlent au même endroit.
 
 La mention « Données de démonstration » disparaît d'elle-même : elle ne s'affiche que si le fichier contient `"metadata": {"demo": true}`.
 
@@ -90,4 +90,4 @@ Le script régénère `assets/img/apercu-linkedin.png` (1200 × 630 px) à parti
 
 ## Crédits
 
-Fond de carte © Esri, HERE, Garmin, contributeurs OpenStreetMap. Contours communaux : IGN Admin Express (via API Géo). Population : INSEE. Carte web : [Leaflet](https://leafletjs.com) (licence BSD-2). Polices : Fraunces, Inter et IBM Plex Mono (SIL Open Font License).
+Fond de carte © Esri, HERE, Garmin, contributeurs OpenStreetMap. Contours communaux : IGN Admin Express (via API Géo). Population : INSEE. Carte web : [Leaflet](https://leafletjs.com) (licence BSD-2). Polices : Fraunces et Inter (SIL Open Font License).

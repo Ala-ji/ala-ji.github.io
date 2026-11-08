@@ -264,21 +264,44 @@
           <li><span class="step-num">05</span><h3>Restitution</h3><p>Mémoire, tableaux, cartes et portail cartographique pour les CPAM</p></li>
         </ol>
 
+        <div class="results">
+          <div class="results-head">
+            <h3 class="results-title">Résultats de l’étude</h3>
+            <p class="results-sub">535 assurés en situation de handicap · médecin généraliste le plus rapide · juillet 2026</p>
+          </div>
+          <ul class="kpis">
+            <li class="kpi"><span class="kpi-num">11,2&nbsp;min</span><span class="kpi-label">de trajet médian en voiture jusqu’au médecin généraliste le plus rapide</span></li>
+            <li class="kpi"><span class="kpi-num">24,8&nbsp;min</span><span class="kpi-label">de trajet médian en transports en commun, pour les trajets praticables</span></li>
+            <li class="kpi"><span class="kpi-num">34&nbsp;%</span><span class="kpi-label">des patients sans trajet praticable en transports en commun</span></li>
+            <li class="kpi"><span class="kpi-num">18&nbsp;%</span><span class="kpi-label">des patients ont un cabinet plus rapide que le plus proche à vol d’oiseau</span></li>
+          </ul>
+          <div class="table-scroll">
+            <table class="data-table" aria-label="Médecin généraliste le plus rapide : voiture et transports en commun">
+              <thead>
+                <tr><th scope="col">Médecin généraliste le plus rapide</th><th scope="col">Voiture</th><th scope="col">Transports en commun</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Patients rattachés</th><td>535 (100&nbsp;%)</td><td>355 (trajets praticables)</td></tr>
+                <tr><th scope="row">Distance de trajet médiane</th><td>7,4&nbsp;km</td><td>5,6&nbsp;km</td></tr>
+                <tr><th scope="row">Temps de trajet médian</th><td>11,2&nbsp;min</td><td>24,8&nbsp;min</td></tr>
+                <tr><th scope="row">Temps maximal</th><td>62,4&nbsp;min</td><td>87,4&nbsp;min</td></tr>
+                <tr><th scope="row">Sans trajet praticable</th><td>—</td><td>152 sans desserte, 28 au-delà de 90&nbsp;min</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="results-text"><strong>Infirmiers.</strong> Le soin infirmier se fait à domicile : seuls les trajets de 8&nbsp;km ou moins par la route sont retenus. 243 patients sur 535 ont un infirmier à cette distance (médiane 3,1&nbsp;km, 6,6&nbsp;min) ; 292 n’en ont pas.</p>
+          <p class="note">Source : note méthodologique, DCGDR Centre-Val de Loire, juillet 2026. Voiture : openrouteservice. Transports en commun : OpenTripPlanner, départ un mardi à 8&nbsp;h, 19 réseaux régionaux et la SNCF, trajets de plus de 90&nbsp;min jugés non praticables. Résultats agrégés : aucune donnée individuelle n’est publiée.</p>
+        </div>
+
         <div class="viz" id="viz">
           <div class="viz-head">
             <div>
-              <h3 class="viz-title">Temps d’accès au cabinet le plus rapide, par commune</h3>
+              <h3 class="viz-title">Démonstration interactive : temps simulés par commune</h3>
               <p class="viz-sub" id="viz-source">Chargement des données…</p>
             </div>
             <span class="badge-demo" id="badge-demo" hidden>Données de démonstration</span>
           </div>
-
-          <ul class="kpis" id="kpis">
-            <li class="kpi"><span class="kpi-num" data-kpi="pop10">—</span><span class="kpi-label">de la population à 10&nbsp;min ou moins d’un cabinet en voiture</span></li>
-            <li class="kpi"><span class="kpi-num" data-kpi="moyVoiture">—</span><span class="kpi-label">de trajet moyen en voiture, pondéré par la population</span></li>
-            <li class="kpi"><span class="kpi-num" data-kpi="popTc45">—</span><span class="kpi-label">de la population à plus de 45&nbsp;min en transports en commun, ou sans desserte</span></li>
-            <li class="kpi"><span class="kpi-num" data-kpi="sansTc">—</span><span class="kpi-label">communes sans desserte exploitable en transports en commun</span></li>
-          </ul>
+          <p class="viz-intro">Les résultats individuels de l’étude ne sont pas publiables. Cette carte montre la restitution cartographique sur les vrais contours communaux, avec des temps simulés.</p>
 
           <div class="viz-toolbar">
             <div class="segmented" role="group" aria-label="Mode de transport affiché">
@@ -299,27 +322,16 @@
             </div>
             <div class="legend" id="legende"></div>
           </div>
-
-          <div class="table-block">
-            <h4 class="table-title" id="tableau-titre">Répartition par classe de temps · voiture</h4>
-            <div class="table-scroll">
-              <table class="data-table" aria-labelledby="tableau-titre">
-                <thead>
-                  <tr><th scope="col">Temps d’accès</th><th scope="col">Communes</th><th scope="col">Part des communes</th><th scope="col">Population</th><th scope="col">Part de la population</th></tr>
-                </thead>
-                <tbody id="tableau-corps"><tr><td colspan="5">Chargement…</td></tr></tbody>
-              </table>
-            </div>
-            <p class="note">Bornes supérieures incluses. Les chiffres de cette section sont recalculés automatiquement à partir des données de la carte.</p>
-          </div>
         </div>
 
         <div class="limits">
           <h3>Limites assumées</h3>
           <ul>
-            <li>Les horaires régionaux publiés ne sont complets qu’en été : les trajets en transports en commun sont calculés pour un mardi de juillet</li>
+            <li>Les horaires ouverts ne sont complets qu’en été : les transports en commun sont calculés un mardi de juillet à 8&nbsp;h, une estimation prudente</li>
+            <li>Le transport à la demande, fréquent en zone rurale, n’apparaît pas dans les horaires exploités</li>
+            <li>L’accessibilité mesurée est géographique : elle ne dit rien des délais de rendez-vous ni de la capacité des cabinets à accueillir de nouveaux patients</li>
             <li>Les temps en voiture ne tiennent pas compte des embouteillages</li>
-            <li>Les résultats publiés sont agrégés à la commune : aucune donnée individuelle n’est diffusée</li>
+            <li>Les résultats publiés sont agrégés : aucune donnée individuelle n’est diffusée</li>
           </ul>
         </div>
       </div>
@@ -528,7 +540,31 @@
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Mémoire · Master 2</span></div>
             <h3>Soutenir l’accès aux soins des personnes en situation de handicap en Centre-Val de Loire</h3>
             <p>Du démarchage de proximité à la téléconsultation assistée : diagnostic territorial d’une action de gestion du risque, DCGDR Centre-Val de Loire. Noté 18/20.</p>
-            <p class="doc-meta">93 p. · 2025–2026 · version publique en préparation</p>
+            <p class="doc-meta">PDF · 93 p. · 1,9 Mo · 2025–2026 · version publique, sans les cartes ni les listes qui localisent des assurés</p>
+            <div class="doc-actions">
+              <a class="btn btn-small btn-ghost" href="docs/memoire-m2-version-publique.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
+              <a class="btn btn-small btn-ghost" href="docs/memoire-m2-version-publique.pdf" data-fichier download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Télécharger</a>
+            </div>
+          </li>
+          <li class="doc-card" data-cat="soins">
+            <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Procès-verbal · Master 2</span></div>
+            <h3>Procès-verbal de soutenance du mémoire de Master 2</h3>
+            <p>Soutenu à Lyon le 11&nbsp;septembre&nbsp;2026, noté 18/20. Jury&nbsp;: Philippe Vidal (président), Géraldine Viatour et Dr&nbsp;Michel Matas, qui autorisent la diffusion du mémoire en ligne.</p>
+            <p class="doc-meta">PDF · 2 p. · 410 Ko · Université Jean Moulin Lyon 3 · signatures et numéro étudiant masqués</p>
+            <div class="doc-actions">
+              <a class="btn btn-small btn-ghost" href="docs/pv-soutenance-m2.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
+              <a class="btn btn-small btn-ghost" href="docs/pv-soutenance-m2.pdf" data-fichier download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Télécharger</a>
+            </div>
+          </li>
+          <li class="doc-card" data-cat="soins">
+            <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Note méthodologique</span></div>
+            <h3>Calcul des temps et distances de trajet</h3>
+            <p>Données, choix du cabinet le plus rapide, transports en commun multimodaux, seuils de 8&nbsp;km et de 90&nbsp;minutes, limites</p>
+            <p class="doc-meta">PDF · 6 p. · 354 Ko · juillet 2026</p>
+            <div class="doc-actions">
+              <a class="btn btn-small btn-ghost" href="docs/note-methodologique.pdf" data-fichier target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>Consulter</a>
+              <a class="btn btn-small btn-ghost" href="docs/note-methodologique.pdf" data-fichier download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Télécharger</a>
+            </div>
           </li>
           <li class="doc-card" data-cat="soins">
             <div class="doc-top"><svg class="icon doc-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="tag">Mémoire · Master 1</span></div>
