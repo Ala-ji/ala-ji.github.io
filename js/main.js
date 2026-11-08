@@ -1,7 +1,7 @@
 /* ==========================================================================
    Portfolio · scripts principaux
    Thème, navigation, apparition au défilement, animation d'accueil
-   (isochrones), filtres de documents, visionneuse, fichiers à venir.
+   (réseau de télésanté), filtres de documents, visionneuse, fichiers à venir.
    ========================================================================== */
 (() => {
   'use strict';
@@ -85,26 +85,28 @@
 
   /* Une seule entrée au chargement : le texte de l'accueil (animation CSS). Le reste est statique. */
 
-  /* ---------- Animation d'accueil : isochrones ----------
-     Quelques « cabinets » (+) et leurs axes rapides. Pour chaque point de
-     l'écran, on calcule le temps d'accès au cabinet le plus rapide, puis on
-     trace les courbes d'égal temps (algorithme des carrés marchants).
-     Les courbes avancent lentement, comme une onde d'accessibilité. */
-  function initIsochrones() {
-    const canvas = document.getElementById('iso-canvas');
+  /* ---------- Animation d'accueil : réseau de télésanté ----------
+     Les 1 754 communes du Centre-Val de Loire en points (taille selon la
+     population) et les pôles de santé (CHU, préfectures, sous-préfectures),
+     tous réels (data/accueil-reseau.json). Par-dessus, des liens s'allument :
+     des téléconsultations d'une commune éloignée vers le pôle principal le plus
+     proche et, plus rarement, des téléexpertises d'un pôle vers un CHU (tirets).
+     Les liens sont une illustration, pas des données. */
+  function initReseau() {
+    const canvas = document.getElementById('reseau-canvas');
     if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
     const hero = canvas.closest('.hero') || canvas.parentElement;
-
-    const STEP = 56;      // écart entre deux courbes
-    const PERIOD = 9000;  // durée (ms) pour qu'une courbe avance d'un cran
-    const V_FAST = 2.5;   // vitesse relative sur les axes rapides
-    const seed = Math.floor(Math.random() * 1e9);
-
-    let W = 0, H = 0, cell = 10, cols = 0, rows = 0, tMax = 0;
-    let field = null, cmin = null, cmax = null, sources = [];
-    let running = false, raf = 0, last = 0, onScreen = true;
+    const fond = document.createElement('canvas'); // points des communes, redessinés au redimensionnement seulement
+    const fctx = fond.getContext('2d');
     const colors = { ink: '#1e293b', accent: '#0d9488', bg: '#f8fafc' };
+
+    let data = null;
+    let W = 0, H = 0, scale = 1, wide = true;
+    let pts = [], poles = [], eloignees = [], relais = [];
+    let liens = [], echos = [];
+    let running = false, raf = 0, onScreen = true, prochain = 0;
+    let rnd = Math.random;
 
     function mulberry32(a) {
       return function () {
@@ -114,6 +116,7 @@
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
       };
     }
+    const doux = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2); // départ et arrivée en douceur
 
     function readColors() {
       const cs = getComputedStyle(root);
@@ -122,182 +125,190 @@
       colors.bg = cs.getPropertyValue('--bg').trim() || colors.bg;
     }
 
+    function plusProche(p, garder) {
+      let best = null, bd = Infinity;
+      for (const h of poles) {
+        if (h === p || (garder && !garder(h))) continue;
+        const d = Math.hypot(h.x - p.x, h.y - p.y);
+        if (d < bd) { bd = d; best = h; }
+      }
+      return { h: best, d: bd };
+    }
+    const principal = (h) => h.rang <= 1; // CHU et préfectures
+
     function setup() {
       const rect = canvas.getBoundingClientRect();
       W = Math.max(1, Math.round(rect.width));
       H = Math.max(1, Math.round(rect.height));
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
+      for (const c of [canvas, fond]) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cell = W < 700 ? 12 : 9;
-      cols = Math.ceil(W / cell) + 1;
-      rows = Math.ceil(H / cell) + 1;
+      fctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!data) return;
 
-      // Cabinets : bien répartis, surtout à droite sur grand écran (le texte est à gauche)
-      const rnd = mulberry32(seed);
-      const n = Math.max(4, Math.min(9, Math.round((W * H) / 150000)));
-      const wide = W > 900;
-      sources = [];
-      for (let i = 0; i < n; i++) {
-        const left = wide && i >= n - 2;
-        const x0 = left ? 0.06 : (wide ? 0.42 : 0.06);
-        const x1 = left ? 0.36 : 0.95;
-        let best = null, bestD = -1;
-        for (let k = 0; k < 14; k++) {
-          const c = { x: (x0 + rnd() * (x1 - x0)) * W, y: (0.1 + rnd() * 0.8) * H };
-          const d = sources.reduce((m, s) => Math.min(m, Math.hypot(s.x - c.x, s.y - c.y)), Infinity);
-          if (d > bestD) { bestD = d; best = c; }
-        }
-        const nRoads = 3 + Math.floor(rnd() * 2);
-        const a0 = rnd() * Math.PI * 2;
-        best.roads = Array.from({ length: nRoads }, (_, j) => {
-          const a = a0 + j * ((Math.PI * 2) / nRoads) + (rnd() - 0.5) * 0.9;
-          return { ux: Math.cos(a), uy: Math.sin(a) };
-        });
-        best.offset = rnd() * STEP;
-        sources.push(best);
+      // La région à droite sur grand écran (le texte est à gauche), centrée sous le voile sinon
+      wide = W > 900;
+      const boxH = wide ? H * 0.84 : Math.min(H * 0.86, (W * 0.94 * data.hauteur) / data.largeur);
+      scale = boxH / data.hauteur;
+      const boxW = data.largeur * scale;
+      const cx = Math.min(wide ? W * 0.7 : W / 2, W - boxW / 2 - 24);
+      const ox = cx - boxW / 2, oy = (H - boxH) / 2;
+      pts = [];
+      for (let i = 0; i < data.points.length; i += 3) {
+        pts.push({ x: ox + data.points[i] * scale, y: oy + data.points[i + 1] * scale, c: data.points[i + 2] });
       }
-
-      // Champ de temps (minimum sur les cabinets, axes rapides compris)
-      const p1 = rnd() * 6.28, p2 = rnd() * 6.28, p3 = rnd() * 6.28;
-      field = new Float32Array(cols * rows);
-      tMax = 0;
-      for (let j = 0; j < rows; j++) {
-        const y = j * cell;
-        for (let i = 0; i < cols; i++) {
-          const x = i * cell;
-          let t = Infinity;
-          for (const s of sources) {
-            const dx = x - s.x, dy = y - s.y;
-            let ts = Math.hypot(dx, dy);
-            for (const r of s.roads) {
-              const proj = dx * r.ux + dy * r.uy;
-              if (proj > 0) {
-                const tr = proj / V_FAST + Math.abs(dx * r.uy - dy * r.ux);
-                if (tr < ts) ts = tr;
-              }
-            }
-            ts += s.offset;
-            if (ts < t) t = ts;
-          }
-          const noise = Math.sin(x * 0.012 + p1) * Math.cos(y * 0.014 + p2) * 0.6 + Math.sin((x + y) * 0.0075 + p3) * 0.4;
-          t *= 1 + 0.13 * noise;
-          field[j * cols + i] = t;
-          if (t > tMax) tMax = t;
-        }
-      }
-
-      // Min / max par cellule pour ignorer vite les cellules non traversées
-      const cw = cols - 1;
-      cmin = new Float32Array(cw * (rows - 1));
-      cmax = new Float32Array(cw * (rows - 1));
-      for (let j = 0; j < rows - 1; j++) {
-        for (let i = 0; i < cw; i++) {
-          const a = field[j * cols + i], b = field[j * cols + i + 1];
-          const c = field[(j + 1) * cols + i + 1], d = field[(j + 1) * cols + i];
-          cmin[j * cw + i] = Math.min(a, b, c, d);
-          cmax[j * cw + i] = Math.max(a, b, c, d);
-        }
-      }
+      poles = data.poles.map(([x, y, rang]) => ({ x: ox + x * scale, y: oy + y * scale, rang }));
+      eloignees = pts.filter((p) => plusProche(p, principal).d > boxH * 0.12);
+      relais = poles.filter((h) => h.rang > 0);
+      liens = []; echos = [];
+      dessinerFond();
     }
 
-    function seg(ax, ay, bx, by) { ctx.moveTo(ax, ay); ctx.lineTo(bx, by); }
-
-    // Carrés marchants : ajoute au tracé courant la courbe de niveau L
-    function contour(L) {
-      const cw = cols - 1;
-      for (let j = 0; j < rows - 1; j++) {
-        const y0 = j * cell;
-        for (let i = 0; i < cw; i++) {
-          const k = j * cw + i;
-          if (L <= cmin[k] || L >= cmax[k]) continue;
-          const tl = field[j * cols + i], tr = field[j * cols + i + 1];
-          const br = field[(j + 1) * cols + i + 1], bl = field[(j + 1) * cols + i];
-          const x0 = i * cell;
-          const idx = (tl > L ? 8 : 0) | (tr > L ? 4 : 0) | (br > L ? 2 : 0) | (bl > L ? 1 : 0);
-          const tX = x0 + (cell * (L - tl)) / (tr - tl), tY = y0;
-          const rX = x0 + cell, rY = y0 + (cell * (L - tr)) / (br - tr);
-          const bX = x0 + (cell * (L - bl)) / (br - bl), bY = y0 + cell;
-          const lX = x0, lY = y0 + (cell * (L - tl)) / (bl - tl);
-          switch (idx) {
-            case 1: case 14: seg(lX, lY, bX, bY); break;
-            case 2: case 13: seg(bX, bY, rX, rY); break;
-            case 3: case 12: seg(lX, lY, rX, rY); break;
-            case 4: case 11: seg(tX, tY, rX, rY); break;
-            case 6: case 9: seg(tX, tY, bX, bY); break;
-            case 7: case 8: seg(lX, lY, tX, tY); break;
-            case 5: seg(lX, lY, tX, tY); seg(bX, bY, rX, rY); break;
-            case 10: seg(tX, tY, rX, rY); seg(lX, lY, bX, bY); break;
-            default: break;
-          }
-        }
+    function dessinerFond() {
+      fctx.clearRect(0, 0, W, H);
+      const k = Math.max(0.75, Math.min(1.25, scale * 1.4));
+      const rayons = [0.8, 1.1, 1.5, 2.1].map((r) => r * k);
+      fctx.fillStyle = colors.ink;
+      fctx.globalAlpha = root.getAttribute('data-theme') === 'dark' ? 0.34 : 0.28;
+      fctx.beginPath();
+      for (const p of pts) {
+        const r = rayons[p.c];
+        fctx.moveTo(p.x + r, p.y);
+        fctx.arc(p.x, p.y, r, 0, Math.PI * 2);
       }
+      fctx.fill();
+      fctx.globalAlpha = 1;
     }
 
-    function draw(now) {
-      ctx.clearRect(0, 0, W, H);
-      const s = now / PERIOD;
-      const base = Math.floor(s);
-      const frac = s - base;
-      const maxL = tMax * 0.92;
-
-      // Axes rapides
-      ctx.save();
-      ctx.strokeStyle = colors.ink;
-      ctx.globalAlpha = 0.07;
-      ctx.lineWidth = 1;
-      ctx.setLineDash([2, 6]);
-      ctx.beginPath();
-      const reach = Math.hypot(W, H);
-      for (const src of sources) {
-        for (const r of src.roads) seg(src.x, src.y, src.x + r.ux * reach, src.y + r.uy * reach);
-      }
-      ctx.stroke();
-      ctx.restore();
-
-      // Isochrones : une courbe sur trois est « maîtresse », comme sur une carte topographique
-      for (let k = 0; ; k++) {
-        const L = (k + frac) * STEP;
-        if (L > maxL) break;
-        const id = k - base;
-        const major = ((id % 3) + 3) % 3 === 0;
-        let a = Math.pow(1 - L / maxL, 1.25);
-        if (L < STEP) a *= L / STEP;
-        ctx.globalAlpha = (major ? 0.5 : 0.2) * a;
-        ctx.strokeStyle = major ? colors.accent : colors.ink;
-        ctx.lineWidth = major ? 1.2 : 0.8;
-        ctx.beginPath();
-        contour(L);
-        ctx.stroke();
-      }
-
-      // Cabinets : une croix au crayon rouge sur une pastille de papier, sans halo
-      ctx.lineCap = 'round';
-      for (const src of sources) {
-        ctx.globalAlpha = 1;
+    function dessinerPole(h) {
+      ctx.globalAlpha = 1;
+      if (h.rang === 2) { // sous-préfecture : point cerclé
         ctx.fillStyle = colors.bg;
-        ctx.beginPath();
-        ctx.arc(src.x, src.y, 7, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = colors.accent;
-        ctx.lineWidth = 1.75;
-        ctx.beginPath();
-        seg(src.x - 5, src.y, src.x + 5, src.y);
-        seg(src.x, src.y - 5, src.x, src.y + 5);
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(h.x, h.y, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = colors.accent;
+        ctx.beginPath(); ctx.arc(h.x, h.y, 2.2, 0, Math.PI * 2); ctx.fill();
+        return;
       }
+      const R = h.rang === 0 ? 8 : 6.5, b = h.rang === 0 ? 4.5 : 3.75;
+      ctx.fillStyle = colors.bg;
+      ctx.beginPath(); ctx.arc(h.x, h.y, R, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = colors.accent;
+      if (h.rang === 0) { // CHU : un anneau de plus
+        ctx.globalAlpha = 0.4; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(h.x, h.y, R + 4, 0, Math.PI * 2); ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+      ctx.lineWidth = 1.75; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(h.x - b, h.y); ctx.lineTo(h.x + b, h.y);
+      ctx.moveTo(h.x, h.y - b); ctx.lineTo(h.x, h.y + b);
+      ctx.stroke();
+    }
+
+    function nouveauLien(t0) {
+      const expertise = rnd() < 0.14;
+      let a, b;
+      if (expertise) {
+        a = relais[Math.floor(rnd() * relais.length)];
+        b = a && plusProche(a, (h) => h.rang === 0).h;
+      } else {
+        const pool = eloignees.length ? eloignees : pts;
+        a = pool[Math.floor(rnd() * pool.length)];
+        b = a && plusProche(a, principal).h;
+      }
+      if (!a || !b) return null;
+      const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy) || 1;
+      let nx = -dy / len, ny = dx / len;
+      if (ny > 0) { nx = -nx; ny = -ny; } // les arcs se bombent vers le haut
+      const bombe = len * (expertise ? 0.16 : 0.26);
+      const c = { x: (a.x + b.x) / 2 + nx * bombe, y: (a.y + b.y) / 2 + ny * bombe };
+      const trajet = Math.min(2400, Math.max(1100, 700 + len * 6));
+      return { a, b, c, expertise, t0, trajet, vie: trajet + 1300, echo: false };
+    }
+
+    // Trace l'arc de 0 à e (découpage de De Casteljau) ; renvoie la position de la tête
+    function arc(L, e, alpha) {
+      const q1x = L.a.x + (L.c.x - L.a.x) * e, q1y = L.a.y + (L.c.y - L.a.y) * e;
+      const q2x = L.c.x + (L.b.x - L.c.x) * e, q2y = L.c.y + (L.b.y - L.c.y) * e;
+      const px = q1x + (q2x - q1x) * e, py = q1y + (q2y - q1y) * e;
+      ctx.globalAlpha = alpha * (L.expertise ? 0.8 : 1);
+      ctx.strokeStyle = colors.accent;
+      ctx.lineWidth = L.expertise ? 1 : 1.25;
+      ctx.setLineDash(L.expertise ? [3, 4] : []);
+      ctx.beginPath();
+      ctx.moveTo(L.a.x, L.a.y);
+      ctx.quadraticCurveTo(q1x, q1y, px, py);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      if (!L.expertise) { // la commune d'origine s'allume
+        ctx.globalAlpha = Math.min(1, alpha * 1.5);
+        ctx.fillStyle = colors.accent;
+        ctx.beginPath(); ctx.arc(L.a.x, L.a.y, 2, 0, Math.PI * 2); ctx.fill();
+      }
+      return { px, py };
+    }
+
+    function rendu(now) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(fond, 0, 0, W, H);
+      liens = liens.filter((L) => now - L.t0 < L.vie);
+      echos = echos.filter((E) => now - E.t0 < 800);
+      for (const L of liens) {
+        const t = now - L.t0;
+        const p = Math.min(1, t / L.trajet);
+        const fade = t <= L.trajet + 300 ? 1 : Math.max(0, 1 - (t - L.trajet - 300) / 1000);
+        const { px, py } = arc(L, doux(p), 0.6 * fade);
+        if (p < 1) { // l'impulsion, une perle cerclée de fond
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = colors.bg;
+          ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = colors.accent;
+          ctx.beginPath(); ctx.arc(px, py, 2.6, 0, Math.PI * 2); ctx.fill();
+        } else if (!L.echo) {
+          L.echo = true;
+          echos.push({ x: L.b.x, y: L.b.y, t0: now });
+        }
+      }
+      for (const E of echos) { // arrivée : un anneau qui s'ouvre et s'efface
+        const t = (now - E.t0) / 800;
+        ctx.globalAlpha = 0.5 * (1 - t);
+        ctx.strokeStyle = colors.accent;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(E.x, E.y, 7 + 12 * (1 - Math.pow(1 - t, 3)), 0, Math.PI * 2); ctx.stroke();
+      }
+      for (const h of poles) dessinerPole(h);
+      ctx.globalAlpha = 1;
+    }
+
+    // Image fixe (mouvement réduit, pause) : quelques liens complets, toujours les mêmes
+    function still() {
+      if (!data) return;
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(fond, 0, 0, W, H);
+      const sauve = rnd;
+      rnd = mulberry32(20261108);
+      for (let i = 0; i < (wide ? 11 : 6); i++) {
+        const L = nouveauLien(0);
+        if (L) arc(L, 1, 0.45);
+      }
+      rnd = sauve;
+      for (const h of poles) dessinerPole(h);
       ctx.globalAlpha = 1;
     }
 
     function frame(now) {
       raf = requestAnimationFrame(frame);
-      if (now - last < 33) return; // environ 30 images par seconde
-      last = now;
-      draw(now);
+      if (now >= prochain && liens.length < (wide ? 9 : 5)) {
+        const L = nouveauLien(now);
+        if (L) liens.push(L);
+        prochain = now + (wide ? 320 : 520) + rnd() * 360;
+      }
+      rendu(now);
     }
     function play() {
-      if (running || reduceMotion.matches) return;
+      if (running || !data || reduceMotion.matches) return;
       running = true;
       raf = requestAnimationFrame(frame);
     }
@@ -305,11 +316,20 @@
       running = false;
       cancelAnimationFrame(raf);
     }
-    function still() { draw(PERIOD * 0.4); }
 
     readColors();
     setup();
-    still();
+    canvas.style.opacity = '0';
+    fetch('data/accueil-reseau.json')
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
+      .then((d) => {
+        data = d;
+        setup();
+        still();
+        canvas.style.opacity = '';
+        if (onScreen && !document.hidden) play();
+      })
+      .catch(() => { canvas.style.opacity = ''; }); // sans données, l'accueil reste lisible, simplement sans réseau
 
     let resizeTimer = 0;
     const onResize = () => {
@@ -330,20 +350,19 @@
         onScreen = entry.isIntersecting;
         if (onScreen && !document.hidden) play(); else pause();
       }).observe(hero);
-    } else {
-      play();
     }
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) pause(); else if (onScreen) play();
     });
-    document.addEventListener('themechange', () => { readColors(); if (!running) still(); });
+    document.addEventListener('themechange', () => { readColors(); dessinerFond(); if (!running) still(); });
     if (reduceMotion.addEventListener) {
       reduceMotion.addEventListener('change', () => {
         if (reduceMotion.matches) { pause(); still(); } else if (onScreen) play();
       });
     }
   }
-  initIsochrones();
+
+  initReseau();
 
   /* ---------- Filtres des documents ---------- */
   const filterBtns = [...document.querySelectorAll('.filter-btn')];

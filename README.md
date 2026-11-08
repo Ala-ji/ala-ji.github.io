@@ -18,11 +18,12 @@ css/style.css                    le design (couleurs et polices en tête de fich
 js/main.js                       thème, menu, animation d'accueil, galerie, documents
 js/carte.js                      carte interactive (démonstration) du projet phare
 data/communes-cvl-demo.geojson   données de démonstration de la carte (à remplacer)
+data/accueil-reseau.json         points des communes et pôles de santé de l'animation d'accueil
 assets/cartes/                   cartes de la galerie (WebP et vignettes)
 assets/img/                      favicon, aperçu LinkedIn
 assets/originaux/                tes exports en pleine résolution (non publiés)
 docs/                            PDF : CV, rapports, note méthodologique, mémoires, procès-verbal
-outils/                          scripts Python : images allégées, aperçu LinkedIn
+outils/                          scripts Python : images allégées, aperçu LinkedIn, points de l'accueil
 ```
 
 ## Personnaliser

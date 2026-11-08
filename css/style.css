@@ -415,8 +415,8 @@ a.is-missing:hover { background: var(--surface); }
   font-size: 0.75rem;
   line-height: 1.4;
 }
-.hero-legend-title { color: var(--ink); font-size: 0.8125rem; font-weight: 500; }
-.hero-legend-cross { color: var(--accent); }
+.hero-legend-title { display: flex; align-items: center; gap: 6px; color: var(--ink); font-size: 0.8125rem; font-weight: 500; }
+.hero-legend-icon { width: 12px; height: 12px; flex: none; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
 
 /* 6. Sections -------------------------------------------------------------- */
 .section { position: relative; padding-block: clamp(80px, 10vw, 128px); }
